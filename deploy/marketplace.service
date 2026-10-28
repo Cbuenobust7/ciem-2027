@@ -1,0 +1,39 @@
+# Plantilla genérica del paquete: renombra este archivo al copiarlo a
+# /etc/systemd/system/ y ajusta WorkingDirectory, User, Group y el puerto
+# a tu instalación. El nombre del archivo no tiene por qué ser el de la
+# unidad instalada.
+[Unit]
+Description=Marketplace Starter (Django + Gunicorn)
+Documentation=file:/srv/marketplace-starter/MIGRACION-SERVIDOR.md
+After=network.target postgresql.service redis-server.service
+Wants=postgresql.service
+
+[Service]
+Type=simple
+User=marketplace
+Group=www-data
+
+WorkingDirectory=/srv/marketplace-starter
+
+# IMPRESCINDIBLE: sin esta variable settings.py lee ".env" en lugar de
+# ".env.production" (ver core/settings.py y §4 de la guía).
+Environment=DJANGO_ENV=production
+Environment=PYTHONUNBUFFERED=1
+
+ExecStart=/srv/marketplace-starter/venv/bin/gunicorn core.wsgi:application \
+    --bind 127.0.0.1:8078 \
+    --workers 3 \
+    --timeout 60 \
+    --access-logfile - \
+    --error-logfile -
+
+Restart=always
+RestartSec=5
+KillSignal=SIGTERM
+
+# Endurecimiento básico
+NoNewPrivileges=true
+PrivateTmp=true
+
+[Install]
+WantedBy=multi-user.target

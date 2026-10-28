@@ -1,0 +1,68 @@
+[
+  {
+    "key": "light",
+    "id": 1838640,
+    "author": "Zachary DeBottis",
+    "source": "https://www.pexels.com/photo/white-concrete-building-1838640/",
+    "file": "assets/light.webp",
+    "alt": "Fachada clara con palmeras y cielo azul",
+    "license": "https://www.pexels.com/license/",
+    "retrieved": "2026-10-27",
+    "modifications": "Redimensionada a 1440 px de ancho, convertida a WebP; recorte visual según el contenedor."
+  },
+  {
+    "key": "architecture",
+    "id": 323780,
+    "author": "Expect Best",
+    "source": "https://www.pexels.com/photo/modern-building-against-sky-323780/",
+    "file": "assets/architecture.webp",
+    "alt": "Vivienda contemporánea con balcones de cristal",
+    "license": "https://www.pexels.com/license/",
+    "retrieved": "2026-10-27",
+    "modifications": "Redimensionada a 1440 px de ancho, convertida a WebP; recorte visual según el contenedor."
+  },
+  {
+    "key": "composition",
+    "id": 159711,
+    "author": "Pixabay",
+    "source": "https://www.pexels.com/photo/books-in-black-wooden-book-shelf-159711/",
+    "file": "assets/composition.webp",
+    "alt": "Libros de distintos colores ordenados en estanterías",
+    "license": "https://www.pexels.com/license/",
+    "retrieved": "2026-10-27",
+    "modifications": "Redimensionada a 1440 px de ancho, convertida a WebP; recorte visual según el contenedor."
+  },
+  {
+    "key": "technology",
+    "id": 356056,
+    "author": "Pixabay",
+    "source": "https://www.pexels.com/photo/black-and-white-laptop-computer-on-brown-wooden-desk-356056/",
+    "file": "assets/technology.webp",
+    "alt": "Mesa de trabajo con ordenador portátil y dispositivos",
+    "license": "https://www.pexels.com/license/",
+    "retrieved": "2026-10-27",
+    "modifications": "Redimensionada a 1440 px de ancho, convertida a WebP; recorte visual según el contenedor."
+  },
+  {
+    "key": "city",
+    "id": 466685,
+    "author": "Lukas Kloeppel",
+    "source": "https://www.pexels.com/photo/empire-state-building-new-york-466685/",
+    "file": "assets/city.webp",
+    "alt": "Panorámica de Manhattan con el Empire State Building",
+    "license": "https://www.pexels.com/license/",
+    "retrieved": "2026-10-27",
+    "modifications": "Redimensionada a 1440 px de ancho, convertida a WebP; recorte visual según el contenedor."
+  },
+  {
+    "key": "notebook",
+    "id": 196644,
+    "author": "picjumbo.com",
+    "source": "https://www.pexels.com/photo/notebook-beside-the-iphone-on-table-196644/",
+    "file": "assets/notebook.webp",
+    "alt": "Cuaderno con bocetos de interfaces junto a un teléfono",
+    "license": "https://www.pexels.com/license/",
+    "retrieved": "2026-10-27",
+    "modifications": "Redimensionada a 1440 px de ancho, convertida a WebP; recorte visual según el contenedor."
+  }
+]

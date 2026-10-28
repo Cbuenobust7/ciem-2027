@@ -1,0 +1,13 @@
+[
+  {
+    "slug": "marketplace-starter",
+    "title": "Marketplace Starter — Django y React",
+    "category": "plataformas-web",
+    "kind": "commercial",
+    "summary": "Base de código editable de CIEM para crear marketplaces, directorios y plataformas de anuncios con Django REST Framework y React.",
+    "description": "Marketplace Starter es un producto comercial de CIEM para construir un marketplace, directorio o plataforma de anuncios. Incluye backend Django REST Framework y frontend React con Vite.\n\nLa ficha comercial describe registro e inicio de sesión con JWT, gestión de anuncios, búsqueda y filtros, administración Django y una base para visibilidad destacada por ciudad. El proyecto utiliza PostgreSQL y Redis y requiere instalación y configuración.\n\nPrueba la demostración en demo.ciem.pe. La compra del código, el precio actualizado y las condiciones de licencia se consultan en Codester. No es una descarga gratuita ni un servicio alojado automáticamente.\n\n¿Necesitas adaptarlo a tu negocio? CIEM puede evaluar la instalación, personalización, integraciones o una plataforma a medida. Estos trabajos se cotizan por separado.",
+    "download": null,
+    "preview": "https://demo.ciem.pe/",
+    "purchaseUrl": "https://www.codester.com/items/72042/marketplace-starter-django-and-react"
+  }
+]

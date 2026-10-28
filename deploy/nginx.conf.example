@@ -1,0 +1,61 @@
+# Marketplace Starter — nginx (ejemplo para /etc/nginx/sites-available/marketplace)
+#
+# Supone el frontend construido en frontend/dist, la API en 127.0.0.1:8078
+# (systemd: marketplace.service) y TLS emitido con certbot --nginx.
+
+server {
+    listen 80;
+    server_name tudominio.com www.tudominio.com;
+    return 301 https://$host$request_uri;
+}
+
+server {
+    listen 443 ssl;
+    http2 on;
+    server_name tudominio.com www.tudominio.com;
+
+    ssl_certificate     /etc/letsencrypt/live/tudominio.com/fullchain.pem;
+    ssl_certificate_key /etc/letsencrypt/live/tudominio.com/privkey.pem;
+
+    # Las subidas de imágenes de anuncios pasan por la API
+    client_max_body_size 10M;
+
+    # Frontend construido (SPA)
+    root /srv/marketplace-starter/frontend/dist;
+    index index.html;
+
+    location /api/ {
+        proxy_pass http://127.0.0.1:8078;
+        proxy_set_header Host $host;
+        proxy_set_header X-Real-IP $remote_addr;
+        proxy_set_header X-Forwarded-For $proxy_add_x_forwarded_for;
+        proxy_set_header X-Forwarded-Proto $scheme;
+    }
+
+    location /admin/ {
+        proxy_pass http://127.0.0.1:8078;
+        proxy_set_header Host $host;
+        proxy_set_header X-Real-IP $remote_addr;
+        proxy_set_header X-Forwarded-For $proxy_add_x_forwarded_for;
+        proxy_set_header X-Forwarded-Proto $scheme;
+    }
+
+    # Estáticos del admin y de DRF (collectstatic)
+    location /static/ {
+        alias /srv/marketplace-starter/staticfiles/;
+        access_log off;
+        expires 30d;
+    }
+
+    # Imágenes subidas por los usuarios
+    location /media/ {
+        alias /srv/marketplace-starter/media/;
+        access_log off;
+        expires 7d;
+    }
+
+    # Deja el SPA funcionar con rutas de React Router
+    location / {
+        try_files $uri $uri/ /index.html;
+    }
+}

@@ -1,0 +1,48 @@
+# Environment and credentials
+.env
+.env.*
+!.env.example
+**/.env
+**/.env.*
+!**/.env.example
+
+# Python
+__pycache__/
+*.py[cod]
+*.pyo
+*.sqlite3
+*.db
+.Python
+venv/
+venv.*/
+.venv/
+ENV/
+.pytest_cache/
+.mypy_cache/
+.ruff_cache/
+.coverage
+htmlcov/
+
+# Node and frontend build output
+node_modules/
+**/node_modules/
+frontend/dist/
+frontend/dist-*/
+frontend/coverage/
+frontend/*.tsbuildinfo
+.vite/
+
+# Generated deployment assets and runtime data
+staticfiles/
+media/*
+!media/catalog/
+!media/catalog/**
+
+# Local backups and temporary files
+.brand-backup-*/
+catalog-tools/backups/
+*.log
+wget-log
+node.tar.xz
+/install.sh\?_x_tr_sl=en
+.DS_Store

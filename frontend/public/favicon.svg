@@ -1,0 +1,11 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 48 48" role="img" aria-label="CIEM">
+  <defs>
+    <linearGradient id="a" x1="0" x2="1"><stop stop-color="#D6F98C"/><stop offset="1" stop-color="#75CA83"/></linearGradient>
+    <linearGradient id="b" x1="0" x2="1"><stop stop-color="#7ACD82"/><stop offset="1" stop-color="#43CBAA"/></linearGradient>
+    <linearGradient id="c" x1="0" x2="1"><stop stop-color="#22CDA5"/><stop offset="1" stop-color="#168D59"/></linearGradient>
+  </defs>
+  <rect width="48" height="48" rx="8" fill="#101F65"/>
+  <polygon points="17,10 31,8 33,19 18,21" fill="url(#a)"/>
+  <polygon points="5,17 24,14 26,28 7,31" fill="url(#b)"/>
+  <polygon points="18,27 35,24 37,37 20,40" fill="url(#c)"/>
+</svg>
