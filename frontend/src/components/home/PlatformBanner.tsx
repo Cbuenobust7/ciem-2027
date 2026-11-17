@@ -74,6 +74,7 @@ export function PlatformBanner() {
                 href={projectContact()}
                 target="_blank"
                 rel="noopener noreferrer"
+                data-analytics-event="quote_request"
                 className="inline-flex items-center gap-3 rounded-xl bg-primary-500 px-6 py-4 text-xl font-bold text-white transition-colors hover:bg-primary-600 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-master-navy"
               >
                 Cotiza gratis por WhatsApp

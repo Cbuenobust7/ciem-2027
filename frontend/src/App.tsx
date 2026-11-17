@@ -2,6 +2,7 @@ import { Suspense, lazy, useEffect, useState } from 'react'
 import { BrowserRouter, Routes, Route, Navigate, useLocation } from 'react-router-dom'
 
 import { MainLayout } from '@/components/layout/MainLayout'
+import { Analytics } from '@/components/Analytics'
 import { MccPreload } from '@/components/preload'
 import { LoadingSpinner } from '@/components/ui/LoadingSpinner'
 import { ErrorBoundary } from '@/components/ui/ErrorBoundary'
@@ -66,6 +67,7 @@ function App() {
 
   return (
     <BrowserRouter>
+      <Analytics />
       <PreloadByRoute isReady={!showPreloader} />
       <ErrorBoundary>
       <Suspense

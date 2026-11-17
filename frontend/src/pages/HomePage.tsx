@@ -52,8 +52,8 @@ export default function HomePage() {
           <h1 id="ciem-hero-title" className="ciem-hero__title">Desarrollo web para impulsar tu negocio</h1>
           <p className="ciem-hero__copy">Diseñamos y desarrollamos sitios web y aplicaciones para negocios. También te ayudamos con hosting y soporte técnico para mantener tu proyecto en línea.</p>
           <div className="ciem-hero__actions">
-            <a className="ciem-hero__button ciem-hero__button--primary" href={projectContact()} target="_blank" rel="noopener noreferrer" data-ciem-ask="Quiero solicitar una cotización para mi proyecto web">Solicitar una cotización</a>
-            <a className="ciem-hero__button ciem-hero__button--secondary" href="#servicios">¿Qué ofrecemos?</a>
+            <a className="ciem-hero__button ciem-hero__button--primary" href={projectContact()} target="_blank" rel="noopener noreferrer" data-ciem-ask="Quiero solicitar una cotización para mi proyecto web" data-analytics-event="hero_quote_request">Solicitar una cotización</a>
+            <a className="ciem-hero__button ciem-hero__button--secondary" href="#servicios" data-analytics-event="hero_services_link">¿Qué ofrecemos?</a>
           </div>
         </div>
         <div className="ciem-hero__art" aria-hidden="true">

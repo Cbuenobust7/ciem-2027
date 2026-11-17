@@ -8,6 +8,7 @@ import { listingsApi } from '@/api/listings'
 import type { ListingListItem } from '@/types/api'
 import { circularCatalogPage, CATALOG_PAGE_SIZE } from '@/lib/catalogSlider'
 import { projectContact } from '@/data/ciemCatalog'
+import { trackAnalyticsEvent } from '@/lib/analytics'
 import { useLanguage } from '@/i18n'
 import '@/pages/CatalogSlider.css'
 
@@ -46,6 +47,7 @@ export function CatalogSection({ showCta = true }: { showCta?: boolean }) {
 
   function goToPage(nextPage: number) {
     const targetPage = ((nextPage - 1 + pageCount) % pageCount) + 1
+    trackAnalyticsEvent('catalog_page_change')
     setPage(targetPage)
     const params = new URLSearchParams(searchParams)
     if (targetPage === 1) params.delete('page')
@@ -91,6 +93,7 @@ export function CatalogSection({ showCta = true }: { showCta?: boolean }) {
                 href={projectContact()}
                 target="_blank"
                 rel="noopener noreferrer"
+                data-analytics-event="quote_request"
                 className="mt-4 flex items-center justify-center gap-2.5 rounded-xl bg-master-cyan px-5 py-3.5 text-lg font-bold text-master-navy transition-colors hover:bg-master-cyan/90 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-master-navy"
               >
                 Solicitar cotización

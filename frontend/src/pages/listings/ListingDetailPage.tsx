@@ -238,7 +238,7 @@ export default function ListingDetailPage() {
                   {product.purchaseUrl && <a className="btn btn-primary w-full" href={product.purchaseUrl} target="_blank" rel="noopener noreferrer">{t('buyCodester')}</a>}
                   {product.download && <a className="btn btn-primary w-full" href={product.download} download>{t('downloadBase')}</a>}
                   {product.preview && <a className="btn btn-secondary w-full" href={product.preview} target="_blank" rel="noopener noreferrer">{t(product.kind === 'quote' || product.kind === 'commercial' ? 'tryDemo' : 'previewBase')}</a>}
-                  <a className="btn btn-secondary w-full" href={projectContact(product.title)} target="_blank" rel="noopener noreferrer">{t(product.kind === 'quote' ? 'quoteProduct' : 'customizeProduct')}</a>
+                  <a className="btn btn-secondary w-full" href={projectContact(product.title)} target="_blank" rel="noopener noreferrer" data-analytics-event="quote_request">{t(product.kind === 'quote' ? 'quoteProduct' : 'customizeProduct')}</a>
                 </div>
               )}
 

@@ -53,7 +53,8 @@ const pages: Record<string, Page> = {
       { title: 'Información que proporcionas', text: 'Según las funciones que utilices, puedes proporcionar datos de registro, contacto y detalles de tu proyecto. El asistente procesa los mensajes enviados para seleccionar una respuesta. Evita incluir información sensible, contraseñas o datos de pago.' },
       { title: 'Para qué se utiliza', text: 'La información se utiliza para gestionar el acceso a tu cuenta, responder solicitudes, atender incidencias y prestar los servicios solicitados. Los sistemas de alojamiento y entrega del sitio pueden procesar datos técnicos de conexión necesarios para su operación y seguridad.' },
       { title: 'Almacenamiento en el navegador', text: 'La sesión utiliza almacenamiento local del navegador para los tokens de acceso y renovación. Puedes cerrar sesión para eliminarlos. Borrar los datos del sitio desde el navegador también puede restablecer preferencias y requerir que inicies sesión nuevamente.' },
-      { title: 'Servicios externos', text: 'Al abrir WhatsApp o navegar a otro dominio, interactúas con ese servicio y sus condiciones de privacidad. No incluyas datos sensibles en los mensajes que compartas. El asistente utiliza infraestructura de inferencia para procesar las consultas enviadas.' },
+      { title: 'Medición de uso', text: 'En ciem.pe podemos utilizar Google Analytics 4 para medir visitas y acciones generales del sitio. Microsoft Clarity puede registrar interacciones de navegación únicamente en páginas públicas seleccionadas; no se activa en páginas de cuenta, reservas ni detalle de anuncios. Estos proveedores pueden utilizar tecnologías de almacenamiento o identificadores y procesar datos técnicos de uso conforme a sus políticas. La medición no se usa para personalizar anuncios. Puedes limitar cookies y almacenamiento desde tu navegador.' },
+      { title: 'Servicios externos', text: 'Al abrir WhatsApp, Google Analytics o Microsoft Clarity, interactúas también con esos servicios y sus condiciones de privacidad. No incluyas datos sensibles en los mensajes que compartas. El asistente utiliza infraestructura de inferencia para procesar las consultas enviadas.' },
       { title: 'Solicitudes sobre tus datos', text: 'Puedes solicitar información sobre el tratamiento y ejercer tus derechos de acceso, rectificación, cancelación u oposición mediante el canal de contacto. Indica el derecho que deseas ejercer; el equipo coordinará la identificación necesaria sin pedirte credenciales de acceso.' },
     ],
   },
@@ -107,7 +108,7 @@ export default function CiemInfoPage() {
       <aside className="ciem-info__contact">
         <h2>¿Necesitas conversar con el equipo?</h2>
         <p>Comparte tu consulta o el enlace del producto que te interesa.</p>
-        <a className="ciem-info__button" href="https://wa.me/51999989709">Contactar con CIEM por WhatsApp</a>
+        <a className="ciem-info__button" href="https://wa.me/51999989709" data-analytics-event="navigation_contact">Contactar con CIEM por WhatsApp</a>
       </aside>
     </article>
   )

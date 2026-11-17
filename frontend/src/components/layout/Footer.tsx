@@ -10,7 +10,7 @@ export function Footer() {
           <ul>
             <li><Link to="/nosotros">Sobre CIEM</Link></li>
             <li><Link to="/contacto">Contacto</Link></li>
-            <li><a href="https://wa.me/51999989709">Conversar por WhatsApp</a></li>
+            <li><a href="https://wa.me/51999989709" data-analytics-event="quote_request">Conversar por WhatsApp</a></li>
           </ul>
         </div>
         <div className="footer-column">

@@ -26,6 +26,7 @@ export function ListingCard({ listing }: ListingCardProps) {
     <Link
       to={`/listings/${listing.id}`}
       className="group block bg-white rounded-lg border border-gray-200 shadow-sm hover:shadow-md transition-shadow overflow-hidden"
+      data-analytics-event="listing_open"
     >
       <div className={`${product ? "aspect-video" : "aspect-square"} bg-gray-100 relative overflow-hidden`}>
         {hasImage ? (
