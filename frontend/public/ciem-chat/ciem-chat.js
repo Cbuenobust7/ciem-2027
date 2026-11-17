@@ -2,6 +2,7 @@
   if (document.getElementById('ciem-chat')) return;
   const root = document.createElement('div');
   root.id = 'ciem-chat';
+  root.setAttribute('data-clarity-mask', 'true');
   root.innerHTML = `<button class="cc-toggle" aria-label="Abrir chat de CIEM" aria-expanded="false" aria-controls="cc-panel"> <svg aria-hidden="true" width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M5 4h14a2 2 0 0 1 2 2v10a2 2 0 0 1-2 2H9l-6 4V6a2 2 0 0 1 2-2Z"/><path d="M7 9h10M7 13h7"/></svg> <span>Conversemos</span></button>
   <section id="cc-panel" hidden aria-label="Asistente de CIEM"><header><div><strong>Asistente CIEM</strong><small>Arquitectura digital & contenido</small></div><button class="cc-close" aria-label="Cerrar chat">×</button></header><div class="cc-messages" role="log" aria-live="polite"></div><form><label for="cc-input">Tu mensaje</label><div class="cc-compose"><textarea id="cc-input" rows="2" maxlength="2000" placeholder="¿Cómo podemos ayudarte?" required></textarea><button type="submit" aria-label="Enviar mensaje">➤</button></div><small>Asistente con IA. Puede cometer errores. No compartas datos sensibles.</small></form></section>`;
   document.body.append(root);

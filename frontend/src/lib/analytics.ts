@@ -187,9 +187,4 @@ export function trackAnalyticsEvent(event: AnalyticsEvent) {
   }
 }
 
-export function getAnalyticsEvent(value: string | undefined): AnalyticsEvent | null {
-  if (!value) return null
-  return Object.values(analyticsEvents).find((event) => event === value) ?? null
-}
-
 export const analytics = analyticsEvents

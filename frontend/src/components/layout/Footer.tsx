@@ -1,4 +1,5 @@
 import { Link } from 'react-router-dom'
+import { analytics, trackAnalyticsEvent } from '@/lib/analytics'
 import './CiemFooter.css'
 
 export function Footer() {
@@ -10,7 +11,7 @@ export function Footer() {
           <ul>
             <li><Link to="/nosotros">Sobre CIEM</Link></li>
             <li><Link to="/contacto">Contacto</Link></li>
-            <li><a href="https://wa.me/51999989709" data-analytics-event="quote_request">Conversar por WhatsApp</a></li>
+            <li><a href="https://wa.me/51999989709" onClick={() => trackAnalyticsEvent(analytics.navigationContact)}>Conversar por WhatsApp</a></li>
           </ul>
         </div>
         <div className="footer-column">

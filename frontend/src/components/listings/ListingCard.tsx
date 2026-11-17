@@ -1,6 +1,7 @@
 import { getCiemProduct, getCiemProductCoverUrl } from '@/data/ciemCatalog'
 import { useLanguage, type TranslationKey } from '@/i18n'
 import { Link } from 'react-router-dom'
+import { analytics, trackAnalyticsEvent } from '@/lib/analytics'
 
 import type { ListingListItem } from '@/types/api'
 
@@ -26,9 +27,9 @@ export function ListingCard({ listing }: ListingCardProps) {
     <Link
       to={`/listings/${listing.id}`}
       className="group block bg-white rounded-lg border border-gray-200 shadow-sm hover:shadow-md transition-shadow overflow-hidden"
-      data-analytics-event="listing_open"
+      onClick={() => trackAnalyticsEvent(analytics.listingOpen)}
     >
-      <div className={`${product ? "aspect-video" : "aspect-square"} bg-gray-100 relative overflow-hidden`}>
+      <div className={`${product ? "aspect-video" : "aspect-square"} bg-gray-100 relative overflow-hidden`} data-clarity-mask="true">
         {hasImage ? (
           <img
             src={product ? getCiemProductCoverUrl(product) : listing.cover_image!}
@@ -49,16 +50,16 @@ export function ListingCard({ listing }: ListingCardProps) {
         )}
       </div>
       <div className="p-4">
-        <h3 className="font-semibold text-master-navy line-clamp-2 mb-1">{listing.title}</h3>
+        <h3 className="font-semibold text-master-navy line-clamp-2 mb-1" data-clarity-mask="true">{listing.title}</h3>
         <p className="text-lg font-bold text-primary-600 mb-2">
           {product ? t(product.kind === 'commercial' ? 'commercialLicense' : product.kind === 'quote' ? 'quoteProduct' : 'freeBase') : listing.is_free ? 'Gratis' : listing.price ? `${listing.currency} ${listing.price}` : 'A convenir'}
         </p>
         <div className="flex items-center justify-between text-xs text-gray-500">
-          <span>{listing.location || t('noLocationShort')}</span>
+          <span data-clarity-mask="true">{listing.location || t('noLocationShort')}</span>
           <span>{product ? t(product.kind === 'commercial' ? 'commercialLicense' : product.kind === 'quote' ? 'byRequest' : 'digitalDownload') : t(CONDITION_LABELS[listing.condition] ?? 'conditionGood')}</span>
         </div>
         <div className="mt-3 flex items-center justify-between text-xs text-gray-400">
-          <span>{t('bySeller', { username: product ? 'CIEM' : listing.seller_username })}</span>
+          <span data-clarity-mask="true">{t('bySeller', { username: product ? 'CIEM' : listing.seller_username })}</span>
           <div className="flex items-center gap-3">
             <span>👁 {listing.view_count}</span>
             <span>❤ {listing.favorite_count}</span>

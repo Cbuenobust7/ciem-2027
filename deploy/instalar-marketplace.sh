@@ -23,6 +23,7 @@
 #   SERVICE_NAME=marketplace
 #   DB_NAME=marketplace_starter  DB_USER=marketplace_user
 #   ADMIN_USER=admin  ADMIN_PASSWORD=...  ADMIN_EMAIL=admin@example.com
+#   VITE_GA_MEASUREMENT_ID=G-...  VITE_CLARITY_PROJECT_ID=...
 #   SKIP_APT=1  SKIP_NODE=1  SKIP_FRONTEND=1  SKIP_NGINX=1
 #
 # Es idempotente: no pisa .env.production, no recrea rol ni base, no duplica el
@@ -94,6 +95,9 @@ run_as_app() {
     else
         sudo -u "$APP_USER" "$@"
     fi
+}
+read_frontend_env() {
+    grep -m1 "^$1=" "$APP_DIR/frontend/.env" 2>/dev/null | cut -d= -f2- || true
 }
 manage() { run_as_app env DJANGO_ENV=production "$APP_DIR/venv/bin/python" "$APP_DIR/manage.py" "$@"; }
 
@@ -235,11 +239,22 @@ EOF
         node -e 'const [a,b]=process.versions.node.split(".").map(Number);
                  process.exit((a>22||(a===22&&b>=12)||(a===20&&b>=19))?0:1)' \
             || die "Node $(node -v) no cumple ^20.19.0 || >=22.12.0, que es lo que exige Vite 8"
+        VITE_GA_MEASUREMENT_ID="${VITE_GA_MEASUREMENT_ID-$(read_frontend_env VITE_GA_MEASUREMENT_ID)}"
+        VITE_CLARITY_PROJECT_ID="${VITE_CLARITY_PROJECT_ID-$(read_frontend_env VITE_CLARITY_PROJECT_ID)}"
+        [ -z "$VITE_GA_MEASUREMENT_ID" ] || [[ "$VITE_GA_MEASUREMENT_ID" =~ ^G-[A-Za-z0-9]+$ ]] \
+            || die "VITE_GA_MEASUREMENT_ID debe tener formato GA4 G-..."
+        [ -z "$VITE_CLARITY_PROJECT_ID" ] || [[ "$VITE_CLARITY_PROJECT_ID" =~ ^[A-Za-z0-9]{10}$ ]] \
+            || die "VITE_CLARITY_PROJECT_ID debe estar vacío o contener 10 caracteres alfanuméricos"
         # VITE_API_URL VA VACÍO A PROPÓSITO: frontend/.env.example trae
         # http://localhost:8078 y copiarlo literal incrustaría esa URL en el
         # bundle. src/api/client.ts usa window.location.origin si está vacío.
-        printf '# Generado por deploy/instalar-marketplace.sh\n# VITE_API_URL vacío => window.location.origin\nVITE_API_URL=\n' \
-            > "$APP_DIR/frontend/.env"
+        cat > "$APP_DIR/frontend/.env" <<EOF
+# Generado por deploy/instalar-marketplace.sh
+# VITE_API_URL vacío => window.location.origin
+VITE_API_URL=
+VITE_GA_MEASUREMENT_ID=${VITE_GA_MEASUREMENT_ID}
+VITE_CLARITY_PROJECT_ID=${VITE_CLARITY_PROJECT_ID}
+EOF
         ( cd "$APP_DIR/frontend" && npm ci --no-audit --no-fund )
         ( cd "$APP_DIR/frontend" && npm run build )
         ok "frontend construido en frontend/dist (VITE_API_URL vacío)"

@@ -1,4 +1,5 @@
 import { projectContact } from '@/data/ciemCatalog'
+import { analytics, trackAnalyticsEvent } from '@/lib/analytics'
 
 const CLIENTS = [
   { file: 'apufest-300x150.png', name: 'APU Fest' },
@@ -64,7 +65,7 @@ export function ClientsBar() {
           href={projectContact()}
           target="_blank"
           rel="noopener noreferrer"
-          data-analytics-event="quote_request"
+          onClick={() => trackAnalyticsEvent(analytics.quoteRequest)}
           className="inline-flex flex-none items-center gap-2.5 rounded-xl bg-master-cyan px-5 py-3 text-base font-bold text-master-navy transition-transform hover:-translate-y-0.5 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-white"
         >
           Solicitar cotización
