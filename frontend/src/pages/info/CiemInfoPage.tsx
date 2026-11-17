@@ -1,6 +1,6 @@
 import { useEffect } from 'react'
 import { Link, useLocation } from 'react-router-dom'
-import { analytics, trackAnalyticsEvent } from '@/lib/analytics'
+import { trackWhatsAppClick } from '@/lib/analytics'
 import './ciem-info.css'
 
 type Section = { title: string; text: string }
@@ -109,7 +109,7 @@ export default function CiemInfoPage() {
       <aside className="ciem-info__contact">
         <h2>¿Necesitas conversar con el equipo?</h2>
         <p>Comparte tu consulta o el enlace del producto que te interesa.</p>
-        <a className="ciem-info__button" href="https://wa.me/51999989709" onClick={() => trackAnalyticsEvent(analytics.navigationContact)}>Contactar con CIEM por WhatsApp</a>
+        <a className="ciem-info__button" href="https://wa.me/51999989709" onClick={() => trackWhatsAppClick('info_contact')}>Contactar con CIEM por WhatsApp</a>
       </aside>
     </article>
   )

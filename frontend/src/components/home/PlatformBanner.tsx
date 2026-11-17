@@ -1,5 +1,5 @@
 import { projectContact } from '@/data/ciemCatalog'
-import { analytics, trackAnalyticsEvent } from '@/lib/analytics'
+import { trackWhatsAppClick } from '@/lib/analytics'
 
 /*
  * Paleta según el Manual de Identidad Corporativa (pág. 05):
@@ -75,7 +75,7 @@ export function PlatformBanner() {
                 href={projectContact()}
                 target="_blank"
                 rel="noopener noreferrer"
-                onClick={() => trackAnalyticsEvent(analytics.quoteRequest)}
+                onClick={() => trackWhatsAppClick('platform_banner')}
                 className="inline-flex items-center gap-3 rounded-xl bg-primary-500 px-6 py-4 text-xl font-bold text-white transition-colors hover:bg-primary-600 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-master-navy"
               >
                 Cotiza gratis por WhatsApp

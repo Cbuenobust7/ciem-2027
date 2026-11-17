@@ -23,6 +23,9 @@
       try { host = new URL(url, location.href).hostname.replace(/^www\./, ''); } catch (error) { host = ''; }
       if (host === 'wa.me') {
         link.className = 'cc-whatsapp';
+        link.addEventListener('click', () => {
+          document.dispatchEvent(new Event('ciem:assistant-whatsapp-click'));
+        });
         const icon = document.createElement('i');
         icon.className = 'fa fa-whatsapp';
         icon.setAttribute('aria-hidden', 'true');
@@ -76,7 +79,12 @@
     renderMessage(bubble, text); log.append(bubble); reveal(bubble); return bubble;
   }
   function open(value) { panel.hidden = !value; toggle.setAttribute('aria-expanded', String(value)); if (value) input.focus(); else toggle.focus(); }
-  toggle.onclick = () => open(panel.hidden);
+  toggle.onclick = () => {
+    if (panel.hidden) {
+      document.dispatchEvent(new Event('ciem:assistant-chat-open'));
+    }
+    open(panel.hidden);
+  };
   root.querySelector('.cc-close').onclick = () => open(false);
   root.addEventListener('keydown', e => { if (e.key === 'Escape') open(false); });
   append('¡Hola! ¿Buscas crear una web o mejorar la que ya tienes? Te ayudo con desarrollo web, hosting, mantenimiento, soporte y Marketplace CIEM. Conversa con el equipo por WhatsApp para evaluar tu proyecto: https://wa.me/51999989709', 'assistant');

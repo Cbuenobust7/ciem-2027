@@ -27,6 +27,41 @@ sin valores de campos ni parámetros de URL. Clarity requiere un ID configurado,
 se limita a rutas públicas seleccionadas y no se habilita en páginas de cuenta,
 reservas ni detalle de anuncios. Los contenidos marcados se enmascaran.
 
+### Eventos para campañas
+
+Los clics que abren WhatsApp envían un único evento GA4 `whatsapp_click` con
+`contact_method=whatsapp` y un `placement` fijo:
+
+| `placement` | Ubicación |
+| --- | --- |
+| `header` | Contacto del encabezado, escritorio y menú móvil |
+| `home_hero` | CTA principal de la portada |
+| `catalog` | CTA de cotización del catálogo |
+| `clients_bar` | CTA de la sección de clientes |
+| `platform_banner` | CTA de la sección de plataforma |
+| `listing_detail` | CTA de contacto de la ficha del producto |
+| `info_contact` | CTA de contacto de páginas informativas |
+| `footer` | WhatsApp del pie de página |
+| `assistant_message` | Enlace de WhatsApp dentro de una respuesta del chat |
+
+Abrir el chat interno envía `assistant_chat_open` con
+`placement=floating_launcher`; no se considera conversión de WhatsApp. Ninguno
+de estos eventos incluye el número, el texto del mensaje ni parámetros de URL.
+`whatsapp_click` mide la apertura del enlace, no confirma que se envió un
+mensaje o que se obtuvo un cliente.
+
+Antes de una campaña, marca `whatsapp_click` como evento clave en GA4 y vincula
+la propiedad con Google Ads para importar esa acción como conversión. Si se
+requieren informes desglosados por ubicación, registra `placement` como una
+dimensión personalizada de ámbito de evento en GA4. `assistant_chat_open` se
+mantiene como evento de interacción separado y no debe importarse como la
+conversión de WhatsApp.
+
+La implementación envía eventos directamente a GA4 mediante `gtag.js`; no
+requiere Google Tag Manager. No configures además en GTM otra etiqueta que
+dispare `whatsapp_click` para los mismos botones, porque duplicaría la
+conversión.
+
 Para desplegar la rama de analítica en producción, ejecuta
 `deploy/deploy-analytics.sh` desde un checkout limpio de `main` o
 `ciem-pe-analitica-ciem`. El script compila desde el commit remoto publicado,

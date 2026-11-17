@@ -21,15 +21,24 @@ const analyticsEvents = {
   navigationDevHosting: 'navigation_dev_hosting',
   navigationServices: 'navigation_services',
   navigationCatalog: 'navigation_catalog',
-  navigationContact: 'navigation_contact',
-  heroQuoteRequest: 'hero_quote_request',
   heroServicesLink: 'hero_services_link',
-  quoteRequest: 'quote_request',
   listingOpen: 'listing_open',
   catalogPageChange: 'catalog_page_change',
+  whatsappClick: 'whatsapp_click',
+  assistantChatOpen: 'assistant_chat_open',
 } as const
 
 export type AnalyticsEvent = (typeof analyticsEvents)[keyof typeof analyticsEvents]
+export type WhatsAppPlacement =
+  | 'header'
+  | 'home_hero'
+  | 'catalog'
+  | 'clients_bar'
+  | 'platform_banner'
+  | 'listing_detail'
+  | 'info_contact'
+  | 'footer'
+  | 'assistant_message'
 
 type GtagFunction = (...args: unknown[]) => void
 type ClarityFunction = ((...args: unknown[]) => void) & { q?: IArguments[] }
@@ -177,14 +186,31 @@ export function syncClarityRecording(pathname: string, search: string) {
   clarityRecordingAllowed = shouldRecord
 }
 
-export function trackAnalyticsEvent(event: AnalyticsEvent) {
+function dispatchAnalyticsEvent(event: AnalyticsEvent, parameters?: Record<string, string>) {
   if (initializeGoogleAnalytics()) {
-    window.gtag?.('event', event)
+    window.gtag?.('event', event, parameters)
   }
 
   if (clarityRecordingAllowed) {
     window.clarity?.('event', event)
   }
+}
+
+export function trackAnalyticsEvent(event: AnalyticsEvent) {
+  dispatchAnalyticsEvent(event)
+}
+
+export function trackWhatsAppClick(placement: WhatsAppPlacement) {
+  dispatchAnalyticsEvent(analyticsEvents.whatsappClick, {
+    contact_method: 'whatsapp',
+    placement,
+  })
+}
+
+export function trackAssistantChatOpen() {
+  dispatchAnalyticsEvent(analyticsEvents.assistantChatOpen, {
+    placement: 'floating_launcher',
+  })
 }
 
 export const analytics = analyticsEvents

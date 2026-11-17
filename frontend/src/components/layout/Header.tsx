@@ -1,7 +1,7 @@
 import { BrandLogo } from './BrandLogo'
 import { useState } from 'react'
 import { Link } from 'react-router-dom'
-import { analytics, trackAnalyticsEvent } from '@/lib/analytics'
+import { analytics, trackAnalyticsEvent, trackWhatsAppClick } from '@/lib/analytics'
 import './CiemNavbar.css'
 
 const links = [
@@ -20,7 +20,7 @@ export function Header() {
         </Link>
         <nav className="ciem-navbar__links" aria-label="Navegación principal">
           {links.map(({ label, href, event }) => <a key={href} href={href} onClick={() => trackAnalyticsEvent(event)}>{label}</a>)}
-          <a href="https://wa.me/51999989709" className="ciem-navbar__contact" target="_blank" rel="noopener noreferrer" onClick={() => trackAnalyticsEvent(analytics.navigationContact)}>Contacto</a>
+          <a href="https://wa.me/51999989709" className="ciem-navbar__contact" target="_blank" rel="noopener noreferrer" onClick={() => trackWhatsAppClick('header')}>Contacto</a>
         </nav>
         <div className="ciem-navbar__tools">
           <button type="button" className="ciem-navbar__toggle" aria-label={menuOpen ? 'Cerrar menú' : 'Abrir menú'} aria-expanded={menuOpen} aria-controls="ciem-navbar-mobile" onClick={() => {
@@ -37,7 +37,7 @@ export function Header() {
           setMenuOpen(false)
         }}>{label}</a>)}
         <a href="https://wa.me/51999989709" className="ciem-navbar__contact" target="_blank" rel="noopener noreferrer" onClick={() => {
-          trackAnalyticsEvent(analytics.navigationContact)
+          trackWhatsAppClick('header')
           setMenuOpen(false)
         }}>Contacto</a>
       </nav>}

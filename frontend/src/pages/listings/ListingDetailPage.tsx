@@ -9,7 +9,7 @@ import { LoadingSpinner } from '@/components/ui/LoadingSpinner'
 import { useListing } from '@/hooks/useListings'
 import { useFavorites, useAddFavorite, useRemoveFavorite } from '@/hooks/useFavorites'
 import { useAuthStore } from '@/stores/auth'
-import { analytics, trackAnalyticsEvent } from '@/lib/analytics'
+import { trackWhatsAppClick } from '@/lib/analytics'
 
 const CONDITION_LABELS: Record<string, string> = {
   new: 'Nuevo',
@@ -239,7 +239,7 @@ export default function ListingDetailPage() {
                   {product.purchaseUrl && <a className="btn btn-primary w-full" href={product.purchaseUrl} target="_blank" rel="noopener noreferrer">{t('buyCodester')}</a>}
                   {product.download && <a className="btn btn-primary w-full" href={product.download} download>{t('downloadBase')}</a>}
                   {product.preview && <a className="btn btn-secondary w-full" href={product.preview} target="_blank" rel="noopener noreferrer">{t(product.kind === 'quote' || product.kind === 'commercial' ? 'tryDemo' : 'previewBase')}</a>}
-                  <a className="btn btn-secondary w-full" href={projectContact(product.title)} target="_blank" rel="noopener noreferrer" onClick={() => trackAnalyticsEvent(analytics.quoteRequest)}>{t(product.kind === 'quote' ? 'quoteProduct' : 'customizeProduct')}</a>
+                  <a className="btn btn-secondary w-full" href={projectContact(product.title)} target="_blank" rel="noopener noreferrer" onClick={() => trackWhatsAppClick('listing_detail')}>{t(product.kind === 'quote' ? 'quoteProduct' : 'customizeProduct')}</a>
                 </div>
               )}
 
