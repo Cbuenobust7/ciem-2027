@@ -1,5 +1,5 @@
 import { Suspense, lazy, useEffect, useState } from 'react'
-import { BrowserRouter, Routes, Route, Navigate } from 'react-router-dom'
+import { BrowserRouter, Routes, Route, Navigate, useLocation } from 'react-router-dom'
 
 import { MainLayout } from '@/components/layout/MainLayout'
 import { MccPreload } from '@/components/preload'
@@ -8,10 +8,12 @@ import { ErrorBoundary } from '@/components/ui/ErrorBoundary'
 import { ProtectedRoute } from '@/components/ui/ProtectedRoute'
 import { RequirePublisher } from '@/components/ui/RequirePublisher'
 import HomePage from '@/pages/HomePage'
+import MarketplacePage from '@/pages/MarketplacePage'
 
 // Carga perezosa: en el primer render solo hace falta el catálogo. Así el panel
 // de proveedor, el asistente de reserva, la agenda y los pagos no engordan el
 // bundle inicial (antes todo viajaba en un único chunk de ~505 kB).
+const CiemInfoPage = lazy(() => import('@/pages/info/CiemInfoPage'))
 const NotFoundPage = lazy(() => import('@/pages/NotFoundPage'))
 const ListingDetailPage = lazy(() => import('@/pages/listings/ListingDetailPage'))
 const CreateListingPage = lazy(() => import('@/pages/listings/CreateListingPage'))
@@ -27,6 +29,13 @@ const PaymentFailurePage = lazy(() => import('@/pages/payment/PaymentFailurePage
 const LoginPage = lazy(() => import('@/pages/auth/LoginPage'))
 const RegisterPage = lazy(() => import('@/pages/auth/RegisterPage'))
 const MyBookingsPage = lazy(() => import('@/pages/cleaning/MyBookingsPage'))
+
+/** El splash del logo no se muestra en las páginas que entran directas al catálogo. */
+function PreloadByRoute({ isReady }: { isReady: boolean }) {
+  const { pathname } = useLocation()
+  const skip = pathname === '/marketplace' || pathname === '/markeplace'
+  return skip ? null : <MccPreload isReady={isReady} />
+}
 
 function App() {
   const [showPreloader, setShowPreloader] = useState(true)
@@ -57,7 +66,7 @@ function App() {
 
   return (
     <BrowserRouter>
-      <MccPreload isReady={!showPreloader} />
+      <PreloadByRoute isReady={!showPreloader} />
       <ErrorBoundary>
       <Suspense
         fallback={
@@ -70,6 +79,15 @@ function App() {
           {/* Rutas públicas con layout */}
           <Route element={<MainLayout />}>
             <Route path="/" element={<HomePage />} />
+            <Route path="/marketplace" element={<MarketplacePage />} />
+            <Route path="/markeplace" element={<Navigate to="/marketplace" replace />} />
+            <Route path="/nosotros" element={<CiemInfoPage />} />
+            <Route path="/contacto" element={<CiemInfoPage />} />
+            <Route path="/ayuda" element={<CiemInfoPage />} />
+            <Route path="/legal/terminos" element={<CiemInfoPage />} />
+            <Route path="/legal/privacidad" element={<CiemInfoPage />} />
+            <Route path="/legal/devoluciones" element={<CiemInfoPage />} />
+            <Route path="/legal/reclamaciones" element={<CiemInfoPage />} />
             <Route path="/unete" element={<Navigate to="/" replace />} />
             <Route path="/proveedores" element={<Navigate to="/" replace />} />
             <Route path="/provider/*" element={<Navigate to="/" replace />} />

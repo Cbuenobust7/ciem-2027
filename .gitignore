@@ -40,6 +40,11 @@ media/*
 
 # Local backups and temporary files
 .brand-backup-*/
+*.bak
+*.bak-*
+dist-prev-*/
+.dist-build-*/
+**/.ciem-backups/
 catalog-tools/backups/
 *.log
 wget-log

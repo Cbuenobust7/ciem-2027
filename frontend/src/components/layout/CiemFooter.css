@@ -1,0 +1,16 @@
+.ciem-site-footer { background: #0d1e67; color: #fff; padding: 60px 0 20px; font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; font-size: 14px; line-height: 1.5; }
+.ciem-site-footer .footer-container { display: flex; flex-wrap: wrap; justify-content: space-between; max-width: 1200px; margin: 0 auto; padding: 0 20px; gap: 20px; }
+.ciem-site-footer .footer-column { flex: 1; min-width: 220px; margin-bottom: 30px; }
+.ciem-site-footer .footer-column h3 { font-size: 18px; font-weight: 700; margin: 0 0 25px; color: #fff; }
+.ciem-site-footer ul { list-style: none; padding: 0; margin: 0; }
+.ciem-site-footer li { margin-bottom: 12px; }
+.ciem-site-footer a { color: #bbb; text-decoration: none; transition: color .3s, padding-left .3s; }
+.ciem-site-footer a:hover { color: #007aff; padding-left: 5px; }
+.ciem-site-footer .social-links { display: flex; flex-direction: column; gap: 12px; }
+.ciem-site-footer .social-link { display: inline-flex; align-items: center; gap: 12px; }
+.ciem-site-footer .social-link svg { color: #fff; flex-shrink: 0; }
+.ciem-site-footer .social-link:hover { color: #fff; }
+.ciem-site-footer .footer-bottom { border-top: 1px solid rgba(255,255,255,.05); padding: 25px 20px 0; text-align: center; color: #fff; margin-top: 30px; }
+.ciem-site-footer .footer-bottom p { margin: 0 0 16px; }
+.ciem-site-footer .ruc-info { color: #fff; font-size: 13px; margin-top: 10px; font-weight: 700; }
+@media (max-width: 520px) { .ciem-site-footer .footer-column { min-width: 0; flex-basis: 100%; } }

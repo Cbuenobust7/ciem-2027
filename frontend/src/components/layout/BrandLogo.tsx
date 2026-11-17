@@ -1,9 +1,11 @@
-/** Logo maestro compartido con ciem.pe; no se reconstruye ni se recolorea. */
-export function BrandLogo({ className = 'h-9 w-auto' }: { className?: string }) {
+/** Logo maestro local de CIEM 2027; conserva sus colores y proporciones. */
+export function BrandLogo({ className = 'w-[180px] h-auto' }: { className?: string }) {
   return (
     <img
       className={className}
-      src="/images/ciem-logo.png"
+      src="/images/ciem-brand/logo-black-on-white-v2.png"
+      width="1566"
+      height="633"
       alt="CIEM Productos Digitales"
     />
   )

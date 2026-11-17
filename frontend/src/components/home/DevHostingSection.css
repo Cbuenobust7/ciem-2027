@@ -1,0 +1,12 @@
+.ciem-dev { padding: 100px 0; background: #F5F8FF; color: #444; scroll-margin-top: 100px; font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; }
+.ciem-dev__inner { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); align-items: center; gap: 30px; width: calc(100% - 30px); max-width: 1110px; margin: 0 auto; }
+.ciem-dev h2 { margin: 0 0 8px; color: #444; font-size: 2.5rem; font-weight: 700; line-height: 1.2; }
+.ciem-dev h2 span { color: #007bff; }
+.ciem-dev__content > p { margin: 16px 0; color: #6c757d; font-size: 1.25rem; font-weight: 300; line-height: 1.5; }
+.ciem-dev ul { list-style: none; padding: 0; margin: 24px 0 0; font-size: 1rem; line-height: 1.5; }
+.ciem-dev li { display: flex; gap: 9px; align-items: baseline; margin-bottom: 8px; }
+.ciem-dev li > span { display: inline-flex; align-items: center; justify-content: center; width: 15px; height: 15px; flex-shrink: 0; border-radius: 50%; color: #fff; background: #007bff; font-size: 11px; font-weight: 700; }
+.ciem-dev__art { text-align: center; }
+.ciem-dev__art img { display: inline-block; max-width: 100%; height: auto; }
+@media (max-width: 991px) { .ciem-dev__inner { grid-template-columns: 1fr; max-width: 690px; gap: 32px; } }
+@media (max-width: 575px) { .ciem-dev { padding: 64px 0; } .ciem-dev__inner { width: calc(100% - 40px); } .ciem-dev h2 { font-size: 2rem; } }

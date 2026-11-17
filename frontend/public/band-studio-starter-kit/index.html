@@ -1,0 +1,106 @@
+<!doctype html>
+<html lang="es">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="theme-color" content="#11110f">
+  <meta name="description" content="Demo de CIEM para la web de una banda y un workspace de muestra para ideas, letras y versiones musicales.">
+  <title>RUIDO NORTE · Band Studio Starter Kit</title>
+  <link rel="stylesheet" href="./style.css">
+  <style>#media-files:focus-visible+label{outline:2px solid #d8ff43;outline-offset:3px}</style>
+</head>
+<body>
+  <div class="demo-banner"><span><strong>DEMO INTERACTIVA</strong> · Banda, contenidos y revisiones ficticias.</span><a href="/">Marketplace CIEM ↗</a></div>
+  <header class="site-header wrap">
+    <a class="wordmark" href="#scene-view" aria-label="Ruido Norte, inicio">RUIDO<span> NORTE</span><i>®</i></a>
+    <nav aria-label="Navegación principal">
+      <a href="#scene-view" data-view="scene">La banda</a>
+      <a href="#scene-view" data-view="scene">Música</a>
+      <a href="#studio" data-view="studio">Espacio interno <span class="lock">↗</span></a>
+    </nav>
+    <a class="header-cta" href="mailto:hola@ruidonorte.example">Hablemos <span>↗</span></a>
+  </header>
+
+  <main>
+    <section id="scene-view" class="view">
+      <section class="hero wrap">
+        <div class="hero-copy">
+          <p class="eyebrow"><span class="live-dot"></span> INDIE ROCK · LIMA, PERÚ</p>
+          <h1>Hacemos ruido<br>para <em>sentir algo.</em></h1>
+          <p class="hero-intro">Canciones para el camino largo, la última combi y todo lo que todavía estamos tratando de decir.</p>
+          <a class="button button-lime" href="#musica">Escucha el último demo <span>↘</span></a>
+          <p class="hero-meta">SENCILLO DE DEMOSTRACIÓN · 2026</p>
+        </div>
+        <div class="hero-art" role="img" aria-label="Arte abstracto original de la banda, con formas de escenario en verde y violeta">
+          <span class="art-label">RN — 026<br>EN VIVO / EN PROCESO</span>
+          <span class="art-sun"></span><span class="art-line"></span>
+          <strong>NO<br>HAY<br>SEÑAL</strong>
+          <span class="art-stamp">RUIDO<br>NORTE ✳</span>
+        </div>
+        <div class="hero-bottom"><span>INDEPENDIENTES POR DISEÑO</span><span>LIMA · PERÚ · DESDE 2021</span></div>
+      </section>
+
+      <section class="ticker" aria-hidden="true">ESCRIBIR · ENSAYAR · GRABAR · VOLVER A EMPEZAR · ESCRIBIR · ENSAYAR · GRABAR ·</section>
+
+      <section id="musica" class="wrap section releases">
+        <div class="section-title"><div><p class="eyebrow">LO QUE ESTAMOS HACIENDO</p><h2>Ruido en<br><em>construcción.</em></h2></div><p>Un espacio para mostrar las canciones, los shows y las historias detrás de la banda.</p></div>
+        <div class="release-grid">
+          <article class="release-card release-one"><span class="release-number">01 / SINGLE</span><div class="record">RN<br>01</div><div><h3>No hay señal</h3><p>Una demo en proceso · 03:42</p></div><span class="play-mark" aria-hidden="true">▶</span></article>
+          <article class="release-card release-two"><span class="release-number">02 / EN ESTUDIO</span><div class="record">SIDE<br>B</div><div><h3>Luces de madrugada</h3><p>Sesión de ensayo · 04:10</p></div><span class="play-mark" aria-hidden="true">↗</span></article>
+          <article class="release-card release-three"><span class="release-number">03 / NOTA DE VOZ</span><div class="record">IDEA<br>03</div><div><h3>Papel y sal</h3><p>Idea acústica · 02:18</p></div><span class="play-mark" aria-hidden="true">↗</span></article>
+        </div>
+        <p class="demo-note">Música y reproducciones de ejemplo. No se reproducen canciones reales.</p>
+      </section>
+
+      <section class="wrap section about">
+        <div class="about-mark" aria-hidden="true">RN<br><span>✳</span></div>
+        <div><p class="eyebrow">CUATRO PERSONAS, UNA SALA</p><h2>El ruido también<br>es una forma de <em>encontrarse.</em></h2><p>Somos Alex, Mara, Nico y Vale. Escribimos sobre las calles que conocemos y las cosas que no siempre sabemos nombrar. Esta banda, su historia y sus integrantes son ficticios: cambia cada detalle para contar la historia de la tuya.</p><a class="text-link" href="#studio" data-view="studio">Así trabajamos por dentro <span>↗</span></a></div>
+      </section>
+
+      <section class="wrap section media-section">
+        <div class="section-title"><div><p class="eyebrow">ARCHIVO DE LA BANDA</p><h2>Fuera del<br><em>escenario.</em></h2></div><p>Fotos, videos y canciones que el equipo puede incorporar a esta demo desde su dispositivo.</p></div>
+        <div class="sample-gallery" aria-label="Galería visual ilustrativa">
+          <div class="gallery-tile gallery-a"><span>ENSAYO / 09.26</span><b>VOLUMEN<br>ARRIBA</b></div>
+          <div class="gallery-tile gallery-b"><span>BACKSTAGE / 08.26</span><b>ANTES DE<br>SALIR</b></div>
+          <div class="gallery-tile gallery-c"><span>ESTUDIO / 06.26</span><b>OTRA<br>TOMA</b></div>
+        </div>
+        <div class="upload-panel">
+          <div><p class="eyebrow">PRUEBA LA CARGA LOCAL</p><h3>Sube archivos de muestra.</h3><p>Se previsualizan aquí en tu navegador; no se envían ni guardan al cerrar esta página.</p></div>
+          <form id="upload-form">
+            <input id="media-files" class="visually-hidden" type="file" accept="image/*,video/*,audio/*" multiple>
+            <label for="media-files" class="button button-outline">Elegir fotos, videos o canciones <span>＋</span></label>
+          </form>
+        </div>
+        <p id="upload-feedback" class="feedback" role="status" aria-live="polite"></p>
+        <div id="uploaded-media" class="uploaded-grid" aria-live="polite"></div>
+      </section>
+
+      <section class="wrap tour">
+        <div><p class="eyebrow">NOS VEMOS CERCA</p><h2>Próximos<br>ruidos.</h2></div>
+        <div class="show-row"><span>NOV <b>28</b></span><div><strong>Sesión de sala</strong><small>La Habitación · Lima · fecha ficticia</small></div><span class="show-tag">DEMO</span></div>
+        <div class="show-row"><span>DIC <b>12</b></span><div><strong>Noche de bandas</strong><small>Patio Central · Lima · fecha ficticia</small></div><span class="show-tag">DEMO</span></div>
+        <p class="demo-note">Fechas y lugares ficticios, sin entradas disponibles.</p>
+      </section>
+      <section class="wrap closing"><p class="eyebrow">¿QUIERES HACER ALGO JUNTOS?</p><h2>Que empiece<br><em>la conversación.</em></h2><a class="button button-dark" href="mailto:hola@ruidonorte.example">hola@ruidonorte.example ↗</a><p class="demo-note">Correo de ejemplo: no envía mensajes.</p></section>
+    </section>
+
+    <section id="studio-view" class="view" hidden>
+      <div class="studio-top"><div class="wrap"><a class="back-link" href="#scene-view" data-view="scene">← Volver a la página de la banda</a><p class="eyebrow"><span class="live-dot"></span> RUIDO NORTE / WORKSPACE</p><h1>Ideas en movimiento.</h1><p>Un espacio de muestra para versionar canciones, letras y decisiones de producción.</p><div class="demo-warning"><strong>ESPACIO DE DEMOSTRACIÓN, SIN PRIVACIDAD.</strong> Esta pantalla es visible para quien abra el enlace. Los cambios se guardan solo en este navegador; no invites al equipo ni compartas material confidencial.</div></div></div>
+      <div class="wrap workspace">
+        <aside class="track-sidebar"><div class="sidebar-heading"><h2>Producciones</h2><span id="track-count" class="count-pill">0</span></div><div id="track-list" class="track-list"></div><button id="new-track-toggle" class="new-track-button" type="button">＋ Nueva idea / canción</button>
+          <form id="new-track-form" class="new-track-form" hidden>
+            <label for="new-track-title">Título provisional</label><input id="new-track-title" maxlength="120" required>
+            <label for="new-track-kind">Tipo</label><select id="new-track-kind"><option value="idea">Idea</option><option value="lyrics">Letra</option><option value="arrangement">Arreglo</option><option value="demo">Demo</option></select>
+            <label for="new-track-content">Primera nota</label><textarea id="new-track-content" maxlength="12000" required></textarea>
+            <button class="button button-lime" type="submit">Crear primera versión ↗</button>
+          </form>
+        </aside>
+        <div class="studio-main"><div id="track-detail"></div></div>
+      </div>
+      <div class="wrap reset-row"><button id="reset-demo" class="text-link" type="button">Restablecer datos de ejemplo</button><span>Demo estática · sin cuentas, sincronización ni backend</span></div>
+    </section>
+  </main>
+  <footer class="site-footer wrap"><a class="wordmark" href="#scene-view">RUIDO NORTE<span> ®</span></a><p>Band Studio Starter Kit · CIEM<br>Demo interactiva. Música, fechas y banda ficticias.</p><a href="/">Marketplace CIEM ↗</a></footer>
+  <script type="module" src="./app.js"></script>
+</body>
+</html>

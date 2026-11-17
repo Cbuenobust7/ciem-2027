@@ -1,23 +1,14 @@
-import { digitalCategorySlugs, projectContact } from '@/data/ciemCatalog'
+import { CatalogSection } from '@/components/catalog/CatalogSection'
+import { PlatformBanner } from '@/components/home/PlatformBanner'
+import { ClientsBar } from '@/components/home/ClientsBar'
+import { AcademySection } from '@/components/home/AcademySection'
+import { DevHostingSection } from '@/components/home/DevHostingSection'
+import type { CSSProperties } from 'react'
+import './CiemHero.css'
+import { projectContact } from '@/data/ciemCatalog'
 import { useLanguage } from '@/i18n'
 import { useEffect, useState } from 'react'
-import { useSearchParams } from 'react-router-dom'
 
-import { Button } from '@/components/ui/Button'
-import { ListingFilters, type FiltersValue } from '@/components/listings/ListingFilters'
-import { ListingGrid } from '@/components/listings/ListingGrid'
-import { categoriesApi } from '@/api/categories'
-import { useListings } from '@/hooks/useListings'
-import { useQuery } from '@tanstack/react-query'
-
-const CATEGORY_STYLES: Record<string, {symbol: string; description: string}> = {
-  'templates-web': {symbol: '▱', description: 'Páginas HTML y CSS para adaptar a tu negocio.'},
-  'plugins-wordpress': {symbol: '◇', description: 'Plugins básicos con shortcodes y código editable.'},
-  'plataformas-web': {symbol: '▦', description: 'Soluciones por encargo, con alcance por definir.'},
-  'componentes-ui': {symbol: '◌', description: 'Secciones y componentes HTML para personalizar.'},
-  'tiendas-online': {symbol: '⌂', description: 'Implementación de tiendas y catálogos por encargo.'},
-  'desarrollo-a-medida': {symbol: '✦', description: 'Construimos desde cero según tus necesidades.'},
-}
 
 export default function HomePage() {
   const { t } = useLanguage()
@@ -27,12 +18,12 @@ export default function HomePage() {
     if (autoScrollCancelled) return
 
     const timer = window.setTimeout(() => {
-      document.getElementById('home-content')?.scrollIntoView({ behavior: 'smooth', block: 'start' })
+      document.getElementById('catalogo')?.scrollIntoView({ behavior: 'smooth', block: 'start' })
     }, 20_000)
 
     const cancelOnIntent = (event: Event) => {
       const target = event.target
-      if (target instanceof Element && target.closest('.mc-header, .home-hero')) {
+      if (target instanceof Element && target.closest('.mc-header, .ciem-hero')) {
         setAutoScrollCancelled(true)
       }
     }
@@ -52,190 +43,71 @@ export default function HomePage() {
     }
   }, [autoScrollCancelled])
 
-  const [searchParams, setSearchParams] = useSearchParams()
-
-  const [filters, setFilters] = useState<FiltersValue>({
-    search: searchParams.get('search') || '',
-    category: searchParams.get('category') ? Number(searchParams.get('category')) : null,
-    condition: searchParams.get('condition') || '',
-    location: searchParams.get('location') || '',
-    ordering: searchParams.get('ordering') || '-created_at',
-  })
-
-  const [page, setPage] = useState(Number(searchParams.get('page')) || 1)
-
-  // Categorías para el filtro
-  const { data: categoriesData } = useQuery({
-    queryKey: ['categories'],
-    queryFn: () => categoriesApi.list(),
-  })
-
-  const categories = categoriesData?.results ?? []
-
-  // Listings con filtros aplicados
-  const { data, isLoading, isError } = useListings({
-    search: filters.search || undefined,
-    category: filters.category ?? undefined,
-    condition: filters.condition || undefined,
-    location: filters.location || undefined,
-    ordering: filters.ordering || undefined,
-    page,
-  })
-
-  // Sincronizar filtros con la URL
-  function handleFiltersChange(newFilters: FiltersValue) {
-    setFilters(newFilters)
-    setPage(1)
-
-    const params = new URLSearchParams()
-    if (newFilters.search) params.set('search', newFilters.search)
-    if (newFilters.category) params.set('category', String(newFilters.category))
-    if (newFilters.condition) params.set('condition', newFilters.condition)
-    if (newFilters.location) params.set('location', newFilters.location)
-    if (newFilters.ordering) params.set('ordering', newFilters.ordering)
-    setSearchParams(params)
-  }
-
-  function handleCategorySelect(categoryId: number) {
-    handleFiltersChange({ ...filters, category: categoryId })
-    document.getElementById('servicios')?.scrollIntoView({ behavior: 'smooth', block: 'start' })
-  }
-
-  const featuredCategories = categories.filter((category) => digitalCategorySlugs.includes(category.slug)).slice(0, 6)
-
   return (
     <div className="home-page">
-      <section className="home-hero section" aria-labelledby="home-hero-title">
-        <div className="home-hero__container">
-          <div className="home-hero__inner">
-            <h1 id="home-hero-title" className="home-hero__title">
-              {t('homeTitle')}
-            </h1>
-
-            <p className="home-hero__text">
-              {t('homeSubtitle')}
-            </p>
-
-            <button
-              type="button"
-              className="btn btn-primary home-hero__button"
-              onClick={() =>
-                document
-                  .getElementById('home-content')
-                  ?.scrollIntoView({ behavior: 'smooth' })
-              }
-            >
-              {t('searchServices')}
-              <span aria-hidden="true"> →</span>
-            </button>
-            <a href={projectContact()} target="_blank" rel="noopener noreferrer" className="btn btn-secondary mt-4">{t('customAction')}</a>
-          </div>
-
-          <div className="home-hero__links" aria-label="Redes sociales">
-            <a href="#" title="Facebook" aria-label="Facebook">
-              <span>f</span>
-            </a>
-            <a href="#" title="Instagram" aria-label="Instagram">
-              <span>ig</span>
-            </a>
-            <a href="#" title="Twitter" aria-label="Twitter">
-              <span>x</span>
-            </a>
-            <a href="#" title="YouTube" aria-label="YouTube">
-              <span>▶</span>
-            </a>
+      <section className="ciem-hero" aria-labelledby="ciem-hero-title">
+      <div className="ciem-hero__inner">
+        <div className="ciem-hero__content">
+          <p className="ciem-hero__eyebrow">DESARROLLO WEB · DISEÑO WEB · HOSTING</p>
+          <h1 id="ciem-hero-title" className="ciem-hero__title">Desarrollo web para impulsar tu negocio</h1>
+          <p className="ciem-hero__copy">Diseñamos y desarrollamos sitios web y aplicaciones para negocios. También te ayudamos con hosting y soporte técnico para mantener tu proyecto en línea.</p>
+          <div className="ciem-hero__actions">
+            <a className="ciem-hero__button ciem-hero__button--primary" href={projectContact()} target="_blank" rel="noopener noreferrer" data-ciem-ask="Quiero solicitar una cotización para mi proyecto web">Solicitar una cotización</a>
+            <a className="ciem-hero__button ciem-hero__button--secondary" href="#servicios">¿Qué ofrecemos?</a>
           </div>
         </div>
-      </section>
+        <div className="ciem-hero__art" aria-hidden="true">
+          <img className="ciem-hero__pattern" src="/images/ciem-hero/banner-pattern-4-1.png" alt="" />
+          <img className="ciem-hero__cloud ciem-hero__cloud--back" src="/images/ciem-hero/cloud2.png" alt="" />
+          <div className="ciem-hero__servers" aria-hidden="true">
 
-      <div id="home-content" className="home-content">
-        <section className="mb-8 rounded-xl border border-slate-200 bg-white p-6 md:p-8" aria-labelledby="custom-platform-title">
-          <p className="mb-2 text-sm font-bold uppercase tracking-wide text-primary-700">CIEM · Desarrollo web</p>
-          <h2 id="custom-platform-title" className="text-2xl font-bold text-master-navy">{t('customTitle')}</h2>
-          <p className="mt-3 max-w-3xl text-base leading-7 text-slate-600">{t('customIntro')}</p>
-          <a href={projectContact()} target="_blank" rel="noopener noreferrer" className="btn btn-primary mt-5">{t('customAction')} <span aria-hidden="true">→</span></a>
-        </section>
-        <p className="mb-6 rounded-lg bg-primary-50 p-4 text-sm text-master-navy">{t('catalogNotice')}</p>
+            <img className="ciem-server" style={{'--x': '-108px', '--y': '365px', '--z': '27'} as CSSProperties} src="/images/ciem-hero/box2.png" alt="" />
+            <img className="ciem-server" style={{'--x': '14px', '--y': '296px', '--z': '17'} as CSSProperties} src="/images/ciem-hero/box1.png" alt="" />
+            <img className="ciem-server" style={{'--x': '-229px', '--y': '294px', '--z': '22'} as CSSProperties} src="/images/ciem-hero/box1.png" alt="" />
+            <img className="ciem-server" style={{'--x': '-106px', '--y': '221px', '--z': '12'} as CSSProperties} src="/images/ciem-hero/box1.png" alt="" />
+            <img className="ciem-server" style={{'--x': '-108px', '--y': '289px', '--z': '28'} as CSSProperties} src="/images/ciem-hero/box1.png" alt="" />
+            <img className="ciem-server" style={{'--x': '14px', '--y': '219px', '--z': '18'} as CSSProperties} src="/images/ciem-hero/box2.png" alt="" />
+            <img className="ciem-server" style={{'--x': '-106px', '--y': '146px', '--z': '13'} as CSSProperties} src="/images/ciem-hero/box1.png" alt="" />
+            <img className="ciem-server" style={{'--x': '-229px', '--y': '218px', '--z': '23'} as CSSProperties} src="/images/ciem-hero/box1.png" alt="" />
+            <img className="ciem-server" style={{'--x': '-108px', '--y': '212px', '--z': '29'} as CSSProperties} src="/images/ciem-hero/box2.png" alt="" />
+            <img className="ciem-server" style={{'--x': '14px', '--y': '144px', '--z': '19'} as CSSProperties} src="/images/ciem-hero/box1.png" alt="" />
+            <img className="ciem-server" style={{'--x': '-229px', '--y': '142px', '--z': '24'} as CSSProperties} src="/images/ciem-hero/box1.png" alt="" />
+            <img className="ciem-server" style={{'--x': '-106px', '--y': '77px', '--z': '14'} as CSSProperties} src="/images/ciem-hero/box1.png" alt="" />
+            <img className="ciem-server" style={{'--x': '-108px', '--y': '136px', '--z': '30'} as CSSProperties} src="/images/ciem-hero/box1.png" alt="" />
+            <img className="ciem-server" style={{'--x': '14px', '--y': '67px', '--z': '20'} as CSSProperties} src="/images/ciem-hero/box2.png" alt="" />
+            <img className="ciem-server" style={{'--x': '-107px', '--y': '0', '--z': '15'} as CSSProperties} src="/images/ciem-hero/box1.png" alt="" />
+            <img className="ciem-server" style={{'--x': '-231px', '--y': '66px', '--z': '25'} as CSSProperties} src="/images/ciem-hero/box1.png" alt="" />
 
-      {featuredCategories.length > 0 && (
-        <section aria-labelledby="categorias-heading" className="mb-10">
-          <div className="mb-5 flex flex-col gap-1 sm:flex-row sm:items-end sm:justify-between">
-            <div>
-              <p className="text-sm font-bold uppercase tracking-[0.16em] text-primary-600">{t('exploreByNeed')}</p>
-              <h2 id="categorias-heading" className="mt-1 text-2xl font-bold text-master-navy">{t('categoriesTitle')}</h2>
-            </div>
-            <p className="text-sm text-gray-600">{t('categoriesSubtitle')}</p>
+            <img className="ciem-server ciem-server--lid" style={{'--x': '-108px', '--y': '-1px', '--z': '16'} as CSSProperties} src="/images/ciem-hero/box3.png" alt="" />
+            <img className="ciem-server ciem-server--lid" style={{'--x': '-108px', '--y': '135px', '--z': '31'} as CSSProperties} src="/images/ciem-hero/box3.png" alt="" />
+            <img className="ciem-server ciem-server--lid" style={{'--x': '-231px', '--y': '66px', '--z': '26'} as CSSProperties} src="/images/ciem-hero/box3.png" alt="" />
           </div>
-
-          <div className="grid gap-3 sm:grid-cols-2 lg:grid-cols-3">
-            {featuredCategories.map((category) => {
-              const style = CATEGORY_STYLES[category.slug] ?? CATEGORY_STYLES['templates-web']
-              const isSelected = filters.category === category.id
-
-              return (
-                <button
-                  key={category.id}
-                  type="button"
-                  onClick={() => handleCategorySelect(category.id)}
-                  aria-pressed={isSelected}
-                  className={[
-                    'group flex min-h-32 items-start gap-4 rounded-xl border p-5 text-left transition focus:outline-none focus:ring-2 focus:ring-primary-500 focus:ring-offset-2',
-                    isSelected
-                      ? 'border-primary-600 bg-primary-50 shadow-sm'
-                      : 'border-gray-200 bg-white hover:-translate-y-0.5 hover:border-primary-300 hover:shadow-md',
-                  ].join(' ')}
-                >
-                  <span className="flex h-11 w-11 shrink-0 items-center justify-center rounded-full bg-primary-100 text-xl font-bold text-primary-700 transition group-hover:bg-primary-600 group-hover:text-white">
-                    {style.symbol}
-                  </span>
-                  <span>
-                    <span className="block text-base font-bold text-master-navy">{category.name}</span>
-                    <span className="mt-1 block text-sm leading-5 text-gray-600">{style.description}</span>
-                    <span className="mt-3 inline-block text-sm font-bold text-primary-700">{t('viewServices')}<span aria-hidden="true">→</span>
-                    </span>
-                  </span>
-                </button>
-              )
-            })}
-          </div>
-        </section>
-      )}
-
-      <section id="servicios" aria-label={t('availableServices')} className="scroll-mt-24">
-        <ListingFilters
-        value={filters}
-        onChange={handleFiltersChange}
-        categories={categories}
-      />
-      </section>
-
-      {isError && (
-        <div className="bg-red-50 border border-red-200 text-red-700 p-4 rounded mb-4">{t('loadListingsError')}</div>
-      )}
-
-      <ListingGrid
-        listings={data?.results}
-        isLoading={isLoading}
-        emptyMessage={t('noListings')}
-      />
-
-      {/* Paginación */}
-      {data && (data.next || data.previous) && (
-        <div className="mt-8 flex items-center justify-center gap-4">
-          <Button
-            variant="secondary"
-            disabled={!data.previous}
-            onClick={() => setPage((p) => Math.max(1, p - 1))}
-          >{t('previous')}</Button>
-          <span className="text-sm text-gray-600">{t('pageCount', { page, count: data.count })}</span>
-          <Button
-            variant="secondary"
-            disabled={!data.next}
-            onClick={() => setPage((p) => p + 1)}
-          >{t('next')}</Button>
+          <img className="ciem-hero__cloud ciem-hero__cloud--front" src="/images/ciem-hero/cloud1.png" alt="" />
         </div>
-      )}
       </div>
+    </section>
+
+      <section id="servicios" aria-labelledby="custom-platform-title" className="relative overflow-hidden bg-master-light">
+        <div className="mx-auto max-w-7xl px-4 py-10 sm:py-14">
+          <PlatformBanner />
+        </div>
+      </section>
+
+      <section id="catalogo" aria-labelledby="catalog-title" className="bg-white">
+        <div className="mx-auto max-w-7xl px-4 py-10 sm:py-14">
+          <CatalogSection />
+          <p className="mt-8 rounded-lg bg-primary-50 p-4 text-sm text-master-navy">{t('catalogNotice')}</p>
+        </div>
+      </section>
+
+      <section aria-labelledby="clientes-title" className="bg-master-light">
+        <div className="mx-auto max-w-7xl px-4 py-10 sm:py-14">
+          <ClientsBar />
+        </div>
+      </section>
+
+      <AcademySection />
+      <DevHostingSection />
     </div>
   )
 }

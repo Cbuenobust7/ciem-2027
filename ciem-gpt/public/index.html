@@ -1,0 +1,96 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="description" content="Asistente CIEM: CIEM Flash con respaldo local, streaming en vivo.">
+<meta name="theme-color" content="#0d0f14">
+<meta name="robots" content="noindex, nofollow">
+<title>CIEM GPT · Asistente</title>
+<link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>💬</text></svg>">
+<link rel="stylesheet" href="style.css">
+</head>
+<body>
+<div class="app" id="app">
+
+  <!-- ───────────── Sidebar ───────────── -->
+  <aside class="sidebar" id="sidebar">
+    <div class="sidebar-top">
+      <div class="brand">
+        <img class="brand-logo" src="assets/ciem-logo.png" alt="CIEM" width="150" height="61">
+      </div>
+      <button id="newChatBtn" class="new-chat">＋ Nuevo chat</button>
+    </div>
+
+    <nav class="chat-list" id="chatList" aria-label="Conversaciones"></nav>
+
+    <div class="sidebar-foot">
+      <div class="status" id="status">
+        <span class="status-dot"></span>
+        <span id="statusText">Conectando…</span>
+      </div>
+    </div>
+  </aside>
+  <div class="overlay" id="overlay" hidden></div>
+
+  <!-- ───────────── Main ───────────── -->
+  <main class="main">
+    <header class="topbar">
+      <button id="menuBtn" class="icon-btn menu-btn" title="Menú" aria-label="Menú">☰</button>
+
+      <div class="model-wrap">
+        <span class="badge" id="modelBadge">CIEM Flash - en proceso de entrenamiento</span>
+      </div>
+
+      <div class="spacer"></div>
+
+      <button id="settingsBtn" class="icon-btn" title="Ajustes" aria-label="Ajustes">⚙</button>
+      <button id="exportBtn" class="icon-btn" title="Exportar conversación" aria-label="Exportar">⇩</button>
+    </header>
+
+    <div class="settings-panel" id="settingsPanel" hidden>
+      <div class="field">
+        <label for="temp">Temperatura <span class="val" id="tempVal">0.7</span></label>
+        <input id="temp" type="range" min="0" max="1.5" step="0.1" value="0.7">
+        <div class="hint">Baja = más preciso y repetitivo · Alta = más creativo</div>
+      </div>
+      <div class="field">
+        <label for="systemPrompt">Prompt de sistema</label>
+        <textarea id="systemPrompt" rows="3" placeholder="Opcional: define el comportamiento del asistente…"></textarea>
+      </div>
+      <div class="hint" id="settingsInfo">El proveedor lo decide el servidor: CIEM Flash primero y respaldo local si no responde.</div>
+    </div>
+
+    <section class="messages" id="messages" aria-live="polite"></section>
+
+    <div class="quota-banner" id="quotaBanner" hidden role="status">
+      <span class="quota-icon" aria-hidden="true">⚠</span>
+      <p id="quotaBannerText">Se quedó sin tokens, consulte a CIEM para comprar más.</p>
+      <a class="quota-link" id="quotaBannerLink" href="https://ciem.pe" target="_blank" rel="noopener">Comprar más</a>
+      <button class="quota-close" id="quotaClose" type="button" aria-label="Cerrar aviso">×</button>
+    </div>
+
+    <div class="composer-wrap">
+      <div class="composer">
+        <textarea id="input" rows="1" placeholder="Escribe un mensaje…" aria-label="Mensaje"></textarea>
+        <div class="composer-actions">
+          <button id="stopBtn" class="btn stop" hidden>■ Detener</button>
+          <button id="sendBtn" class="btn send" title="Enviar (Enter)">Enviar</button>
+        </div>
+      </div>
+      <div class="composer-hint">
+        <span><kbd>Enter</kbd> envía · <kbd>Shift</kbd>+<kbd>Enter</kbd> salto de línea</span>
+        <span id="quotaInfo"></span>
+      </div>
+    </div>
+  </main>
+</div>
+
+<noscript>
+  <p class="noscript">CIEM GPT necesita JavaScript para funcionar.</p>
+</noscript>
+
+<script src="config.js"></script>
+<script src="app.js"></script>
+</body>
+</html>

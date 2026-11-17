@@ -1,0 +1,18 @@
+/* Academia original: valores del HTML y Bootstrap 4, limitados a esta sección. */
+.ciem-academy { padding: 100px 0; background: #FFFFFF; border-top: 1px solid #e9ecef; border-bottom: 1px solid #e9ecef; color: #444; font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; font-size: 16px; line-height: 1.5; scroll-margin-top: 100px; }
+.ciem-academy__container { width: 100%; padding: 0 15px; margin: 0 auto; text-align: center; }
+.ciem-academy h2 { margin: 0 0 8px; font-size: 2rem; line-height: 1.2; font-weight: 700; color: inherit; }
+.ciem-academy h2 span { color: #007bff; }
+.ciem-academy__intro { max-width: 700px; margin: 16px auto 48px; color: #6c757d; }
+.ciem-academy__row { display: flex; flex-wrap: wrap; justify-content: center; margin: 0 -15px; text-align: left; }
+.ciem-academy__column { position: relative; width: 100%; padding: 0 15px; margin-bottom: 16px; }
+.ciem-academy__card { padding: 24px; background: #fff; border-radius: 4px; box-shadow: 0 .125rem .25rem rgba(0,0,0,.075); border-left: 5px solid #007bff; }
+.ciem-academy h5 { margin: 0 0 8px; font-size: 1.25rem; font-weight: 700; line-height: 1.2; color: inherit; }
+.ciem-academy__card p { margin: 0; font-size: 80%; font-weight: 400; }
+.ciem-academy__button { display: inline-block; padding: 16px 48px; margin-top: 24px; border: 1px solid #007bff; border-radius: 50rem; background: #007bff; color: #fff; font-size: 1rem; font-weight: 700; line-height: 1.5; text-align: center; text-decoration: none; vertical-align: middle; box-shadow: 0 .5rem 1rem rgba(0,0,0,.15); transition: background-color .15s ease-in-out, border-color .15s ease-in-out, box-shadow .15s ease-in-out; }
+.ciem-academy__button:hover { background: #0069d9; border-color: #0062cc; color: #fff; }
+.ciem-academy__button:focus-visible { outline: 3px solid #101f65; outline-offset: 4px; }
+@media (min-width: 576px) { .ciem-academy__container { max-width: 540px; } }
+@media (min-width: 768px) { .ciem-academy__container { max-width: 720px; } .ciem-academy__column { flex: 0 0 41.666667%; max-width: 41.666667%; } }
+@media (min-width: 992px) { .ciem-academy__container { max-width: 960px; } }
+@media (min-width: 1200px) { .ciem-academy__container { max-width: 1140px; } }

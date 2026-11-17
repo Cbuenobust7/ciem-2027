@@ -1,0 +1,127 @@
+/* Fondo del catálogo a todo el ancho, igual a Dev & Hosting. */
+.home-page { background-color: #F5F8FF; }
+
+.ciem-hero {
+          --hero-navy: #12266f;
+          position: relative;
+          isolation: isolate;
+          display: flex;
+          align-items: center;
+          min-height: min(720px, calc(100svh - 82px));
+          overflow: hidden;
+          padding: clamp(3.5rem, 7vw, 6.5rem) 0;
+          color: #fff;
+          background: var(--hero-navy) url('/images/ciem-hero/shape.png') center bottom / cover no-repeat;
+        }
+        .ciem-hero__inner {
+          position: relative;
+          z-index: 1;
+          display: grid;
+          grid-template-columns: minmax(0, 570px) minmax(460px, 1fr);
+          align-items: center;
+          gap: clamp(2rem, 6vw, 8rem);
+          width: min(1240px, calc(100% - 4rem));
+          margin: 0 auto;
+        }
+        .ciem-hero__content { position: relative; z-index: 2; }
+        .ciem-hero__eyebrow {
+          margin: 0 0 1.45rem;
+          color: #06d69a;
+          font-size: clamp(.83rem, 1vw, 1.05rem);
+          font-weight: 800;
+          letter-spacing: .24em;
+          line-height: 1.2;
+        }
+        .ciem-hero__title {
+          max-width: 620px;
+          margin: 0;
+          color: #fff;
+          font-size: clamp(3rem, 4.25vw, 4.5rem);
+          font-weight: 750;
+          letter-spacing: -.045em;
+          line-height: .99;
+        }
+        .ciem-hero__copy {
+          max-width: 570px;
+          margin: 1.7rem 0 0;
+          color: #dce7ff;
+          font-size: clamp(1.05rem, 1.35vw, 1.35rem);
+          line-height: 1.55;
+        }
+        .ciem-hero__actions { display: flex; flex-wrap: wrap; gap: 1.05rem; margin-top: 2.25rem; }
+        .ciem-hero__button {
+          display: inline-flex;
+          align-items: center;
+          justify-content: center;
+          min-height: 64px;
+          padding: .9rem 1.7rem;
+          border: 2px solid transparent;
+          border-radius: 14px;
+          color: #fff;
+          font-size: 1.08rem;
+          font-weight: 750;
+          line-height: 1.1;
+          text-align: center;
+          text-decoration: none;
+          transition: transform .2s ease, background-color .2s ease, border-color .2s ease;
+        }
+        .ciem-hero__button:hover, .ciem-hero__button:focus { color: #fff; transform: translateY(-2px); text-decoration: none; }
+        .ciem-hero__button--primary { min-width: 292px; background: #087dfa; box-shadow: 0 12px 24px rgba(0, 89, 194, .28); }
+        .ciem-hero__button--primary:hover, .ciem-hero__button--primary:focus { background: #0668d3; }
+        .ciem-hero__button--secondary { min-width: 205px; border-color: #b8c5e8; background: rgba(18, 38, 111, .13); }
+        .ciem-hero__button--secondary:hover, .ciem-hero__button--secondary:focus { background: rgba(255,255,255,.12); }
+        .ciem-hero__art {
+          position: relative;
+          width: min(100%, 570px);
+          height: 540px;
+          margin-left: auto;
+          pointer-events: none;
+        }
+        .ciem-hero__cloud { position: absolute; z-index: 1; width: auto; filter: drop-shadow(0 10px 16px rgba(5, 14, 61, .1)); }
+        .ciem-hero__cloud--back { top: -57px; left: calc(50% - 308px); width: 400px; animation: ciem-drift 4.8s cubic-bezier(.45, 0, .55, 1) infinite alternate; }
+        .ciem-hero__cloud--front { top: 182px; left: calc(50% + 90px); z-index: 3; width: 269px; animation: ciem-drift 5.4s cubic-bezier(.45, 0, .55, 1) -1.8s infinite alternate-reverse; }
+        .ciem-hero__pattern { position: absolute; z-index: 0; top: 5px; left: calc(50% - 180px); width: 130px; opacity: .72; }
+        /* Matriz original de Revolution Slider, ahora con CSS/HTML nativo. */
+        .ciem-hero__servers {
+          position: absolute;
+          z-index: 2;
+          inset: 0;
+          animation: ciem-tower-float 4.8s cubic-bezier(.45, 0, .55, 1) infinite alternate;
+          will-change: transform;
+        }
+        .ciem-server {
+          position: absolute;
+          top: var(--y);
+          left: calc(50% + var(--x));
+          z-index: var(--z);
+          width: 217px;
+          filter: drop-shadow(0 13px 12px rgba(7, 19, 76, .16));
+        }
+        .ciem-server--lid { filter: none; }
+        @keyframes ciem-tower-float {
+          from { transform: translate3d(0, 8px, 0); }
+          to { transform: translate3d(0, -12px, 0); }
+        }
+        @keyframes ciem-drift { from { transform: translateX(-15px); } to { transform: translateX(17px); } }
+        @media (max-width: 1100px) {
+          .ciem-hero { min-height: auto; }
+          .ciem-hero__inner { grid-template-columns: minmax(0, 1fr) minmax(360px, .88fr); gap: 1.5rem; width: min(calc(100% - 3rem), 1020px); }
+          .ciem-hero__art { height: 430px; }
+          .ciem-hero__servers { animation: none; transform: scale(.8); transform-origin: center center; }
+          .ciem-hero__cloud--back, .ciem-hero__cloud--front { transform: scale(.8); transform-origin: center; }
+        }
+        @media (max-width: 767px) {
+          .ciem-hero { padding: 4.5rem 0 2.75rem; background-position: 58% bottom; }
+          .ciem-hero__inner { display: block; width: min(calc(100% - 2.5rem), 560px); }
+          .ciem-hero__title { font-size: clamp(2.6rem, 12vw, 4rem); }
+          .ciem-hero__copy { font-size: 1.06rem; }
+          .ciem-hero__actions { margin-top: 1.85rem; }
+          .ciem-hero__button { width: 100%; min-height: 58px; }
+          .ciem-hero__art { width: min(100%, 480px); height: 360px; margin: 2rem auto 0; }
+          .ciem-hero__servers { animation: none; transform: scale(.58); transform-origin: center top; }
+          .ciem-hero__cloud--back, .ciem-hero__cloud--front { transform: scale(.65); transform-origin: center; }
+          .ciem-hero__cloud--front { bottom: 2%; }
+        }
+        @media (prefers-reduced-motion: reduce) {
+          .ciem-hero *, .ciem-hero *::before, .ciem-hero *::after { animation-duration: .01ms !important; animation-iteration-count: 1 !important; transition-duration: .01ms !important; }
+        }

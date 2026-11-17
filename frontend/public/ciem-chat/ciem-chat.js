@@ -18,7 +18,9 @@
       element.append(document.createTextNode(text.slice(cursor, match.index)));
       const link = document.createElement('a');
       link.href = url;
-      if (new URL(url).hostname === 'wa.me') {
+      let host = '';
+      try { host = new URL(url, location.href).hostname.replace(/^www\./, ''); } catch (error) { host = ''; }
+      if (host === 'wa.me') {
         link.className = 'cc-whatsapp';
         const icon = document.createElement('i');
         icon.className = 'fa fa-whatsapp';
@@ -30,16 +32,47 @@
       } else {
         link.textContent = url;
       }
-      link.target = '_blank';
-      link.rel = 'noopener noreferrer';
+      // Las secciones del propio sitio se abren en la misma pestaña; lo externo, aparte.
+      if (host !== location.hostname.replace(/^www\./, '')) {
+        link.target = '_blank';
+        link.rel = 'noopener noreferrer';
+      } else if (link.hash) {
+        // SPA: el navegador salta al ancla antes de que React monte la sección,
+        // así que si ya existe la desplazamos aquí.
+        link.addEventListener('click', event => {
+          const target = findAnchor(link.hash);
+          if (!target) return;
+          event.preventDefault();
+          target.scrollIntoView({ behavior: 'smooth', block: 'start' });
+        });
+      }
       element.append(link);
       cursor = match.index + url.length;
     }
     element.append(document.createTextNode(text.slice(cursor)));
   }
+  function findAnchor(hash) {
+    if (!hash || hash.length < 2) return null;
+    try { return document.querySelector(hash); } catch (error) { return null; }
+  }
+  function revealHash(attempt = 0) {
+    if (!location.hash || location.hash.length < 2) return;
+    const target = findAnchor(location.hash);
+    if (target) { target.scrollIntoView({ block: 'start' }); return; }
+    // React puede tardar en montar la sección: reintenta ~2 s.
+    if (attempt < 8) setTimeout(() => revealHash(attempt + 1), 250);
+  }
+  function reveal(bubble) {
+    // Respuesta más alta que el área visible: mostrar su INICIO, no su final.
+    if (panel.hidden || !bubble) { log.scrollTop = log.scrollHeight; return; }
+    if (bubble.offsetHeight + 12 <= log.clientHeight) { log.scrollTop = log.scrollHeight; return; }
+    const box = log.getBoundingClientRect();
+    const rect = bubble.getBoundingClientRect();
+    log.scrollTop += rect.top - box.top - 10;
+  }
   function append(text, role) {
     const bubble = document.createElement('div'); bubble.className = 'cc-message cc-' + role;
-    renderMessage(bubble, text); log.append(bubble); log.scrollTop = log.scrollHeight; return bubble;
+    renderMessage(bubble, text); log.append(bubble); reveal(bubble); return bubble;
   }
   function open(value) { panel.hidden = !value; toggle.setAttribute('aria-expanded', String(value)); if (value) input.focus(); else toggle.focus(); }
   toggle.onclick = () => open(panel.hidden);
@@ -59,14 +92,43 @@
       renderMessage(pending, data.message);
       history.push({role:'user', content}, {role:'assistant', content:data.message.slice(0,2000)});
     } catch (error) { pending.textContent = error.name === 'TimeoutError' ? 'La consulta tardó demasiado. Intenta nuevamente.' : (error instanceof SyntaxError ? 'El asistente aún no está disponible.' : error.message); }
-    finally { send.disabled = false; input.disabled = false; if (!panel.hidden) input.focus(); log.scrollTop = log.scrollHeight; }
+    finally { send.disabled = false; input.disabled = false; if (!panel.hidden) input.focus(); reveal(pending); }
   });
-  document.querySelectorAll('[data-ciem-quote]').forEach(button => {
-    button.addEventListener('click', () => {
-      open(true);
-      if (send.disabled) return;
-      input.value = 'Me gustaría solicitar una cotización';
-      form.requestSubmit();
-    });
-  });
+  // Cada CTA que lleva al asistente declara su consulta en data-ciem-ask. Los
+  // selectores por clase son el respaldo para el HTML ya compilado, anterior a
+  // los atributos; la delegación en document evita depender del orden de montaje
+  // de React, que ocurre después de este script.
+  // «¿Qué ofrecemos?» ya no abre el chat: es un ancla a #home-content, así que
+  // no puede quedar capturado por ninguna regla por clase.
+  const CANNED = [
+    ['ciem-hero__button--primary', 'Quiero solicitar una cotización para mi proyecto web']
+  ];
+  function askText(element) {
+    const attribute = element.getAttribute('data-ciem-ask');
+    if (attribute) return attribute;
+    if (element.hasAttribute('data-ciem-quote')) return 'Quiero solicitar una cotización para mi proyecto web';
+    for (const [className, text] of CANNED) {
+      if (element.classList.contains(className)) return text;
+    }
+    if (element.matches('a.btn.btn-primary') && element.closest('[aria-labelledby="custom-platform-title"]')) {
+      return 'Quiero cotizar una plataforma web a medida';
+    }
+    return null;
+  }
+  // Fase de captura: React delega sus onClick en #root (burbuja), así que hay que
+  // cortar el evento antes de que llegue allí. Si no, el botón primario abría
+  // WhatsApp con window.open() y además el chat.
+  document.addEventListener('click', event => {
+    const element = event.target instanceof Element ? event.target.closest('button, a') : null;
+    if (!element) return;
+    const text = askText(element);
+    if (!text) return;
+    event.preventDefault();
+    event.stopPropagation();
+    open(true);
+    if (send.disabled) return;
+    input.value = text;
+    form.requestSubmit();
+  }, true);
+  revealHash();
 })();

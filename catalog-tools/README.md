@@ -83,4 +83,9 @@ Demo publicada en /ticketing-starter-kit/: seis eventos ficticios, categorías/b
 Demo en /ciem-gov/: seis servicios, fichas con orientación y requisitos ficticios, registro de solicitudes, código de seguimiento, historial, subsanación y gestión simulada. Atención ciudadana con agenda local de cuatro turnos; anulación libera turno. Transparencia con seis documentos, filtros, impresión y CSV de cuatro partidas presupuestales ficticias. Controles de texto y contraste, foco visible, salto al contenido y movimiento reducido; sin certificación de accesibilidad. Fotografía Pexels con créditos. Sin entidad real, validez administrativa, DNI, archivos, firma, pagos ni integraciones estatales. Datos solo en navegador. Ocho pruebas de lógica y recorrido completo en Chrome correctos; revisión visual escritorio/móvil/transparencia y TypeScript/Vite correctos. Alcance: ciem-gov-scope.md.
 
 ### CIEM Participa — Gobernanza Colaborativa
+
 Demo en /ciem-participa/: propuestas comunitarias ficticias, estados de deliberación, aportes, reconocimientos, apoyo local único, decisión colectiva simulada y acuerdos con tareas y avance local. Inspiración conceptual en gobernanza colaborativa; no hay participación, votos, moderación ni acuerdos vinculantes reales. Datos solo en navegador. Seis pruebas de lógica correctas. Alcance: ciem-participa-scope.md.
+
+### Band Studio Starter Kit
+
+Demo en `/band-studio-starter-kit/`: web de una banda ficticia, galería con previsualización local de archivos y workspace para ideas, canciones, versiones de letras/arreglos, comentarios y estados de revisión. Textos se guardan solo en localStorage; los archivos multimedia solo se previsualizan durante la sesión. Sin cuentas, privacidad, sincronización ni colaboración real. Alcance: `band-studio-starter-scope.md`. Pruebas: `node --test catalog-tools/test_band_studio_starter.mjs`.

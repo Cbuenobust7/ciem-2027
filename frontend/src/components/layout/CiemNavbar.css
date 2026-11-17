@@ -1,0 +1,26 @@
+.ciem-navbar { position: sticky; top: 0; z-index: 999; background: #fff; padding: 8px 0; box-shadow: 0 2px 10px rgba(0,0,0,.05); font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; }
+.ciem-navbar__inner { display: flex; align-items: center; justify-content: space-between; gap: 28px; width: calc(100% - 30px); max-width: 1110px; margin: 0 auto; }
+.ciem-navbar__brand { display: inline-flex; align-items: center; justify-content: center; flex-shrink: 0; padding: 4px 0; border-radius: 0; background: #fff; }
+.ciem-navbar__brand img { display: block; width: 180px; max-width: 100%; height: auto; }
+.ciem-navbar__links { display: flex; align-items: center; gap: 32px; margin-left: auto; }
+.ciem-navbar__links a, .ciem-navbar__mobile a { color: #343a40; font-size: 12.8px; font-weight: 700; text-decoration: none; }
+.ciem-navbar a:hover { color: #007aff; }
+.ciem-navbar a.ciem-navbar__contact { display: inline-flex; justify-content: center; align-items: center; padding: 6px 24px; border-radius: 999px; color: #fff; background: #007bff; font-size: 14px; font-weight: 400; line-height: 1.5; }
+.ciem-navbar a.ciem-navbar__contact:hover { background: #0069d9; }
+.ciem-navbar__tools { display: flex; align-items: center; gap: 16px; flex-shrink: 0; }
+.ciem-navbar .mc-language-selector, .ciem-navbar .mc-language-selector__chevron { color: #343a40; }
+.ciem-navbar .mc-language-selector { min-height: 36px; }
+.ciem-navbar .mc-language-selector:focus-within { outline: 2px solid #007aff; outline-offset: 4px; border-radius: 4px; }
+.ciem-navbar__toggle { display: none; width: 40px; height: 40px; padding: 9px; border: 1px solid #d9dfe5; border-radius: 6px; background: #fff; }
+.ciem-navbar__toggle span { display: block; height: 2px; background: #343a40; margin: 4px 0; }
+.ciem-navbar__mobile { display: none; }
+@media (max-width: 767px) {
+ .ciem-navbar__inner { gap: 12px; }
+ .ciem-navbar__inner { flex-wrap: wrap; }
+ .ciem-navbar__tools { margin-left: auto; }
+ .ciem-navbar__links { display: none; }
+ .ciem-navbar__toggle { display: block; }
+ .ciem-navbar__mobile { display: flex; flex-direction: column; align-items: flex-start; gap: 20px; padding: 24px 20px 8px; }
+}
+
+@media (max-width: 399px) { .ciem-navbar__inner { justify-content: center; } .ciem-navbar__tools { margin: 0 auto; } }

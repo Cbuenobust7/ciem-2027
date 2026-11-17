@@ -1,0 +1,22 @@
+[Unit]
+Description=Asistente CIEM 2027 conectado a Ollama
+After=network.target ollama.service
+Wants=ollama.service
+
+[Service]
+User=carlos
+WorkingDirectory=/var/www/ciem-2027/ciem-chat
+Environment=OLLAMA_PRIMARY_URL=http://192.168.1.39:11434
+Environment=OLLAMA_PRIMARY_MODEL=qwen2.5:0.5b
+Environment=OLLAMA_FALLBACK_URL=http://127.0.0.1:11434
+Environment=OLLAMA_FALLBACK_MODEL=qwen2.5:0.5b
+EnvironmentFile=-/etc/default/ciem-chat
+ExecStart=/usr/bin/python3 /var/www/ciem-2027/ciem-chat/server.py
+Restart=on-failure
+NoNewPrivileges=true
+PrivateTmp=true
+ProtectSystem=strict
+ProtectHome=read-only
+
+[Install]
+WantedBy=multi-user.target
