@@ -1,0 +1,10 @@
+User-agent: *
+Allow: /
+Disallow: /login
+Disallow: /register
+Disallow: /favorites
+Disallow: /my-listings
+Disallow: /my-visibility
+Disallow: /my-bookings
+
+Sitemap: https://ciem.pe/sitemap.xml
