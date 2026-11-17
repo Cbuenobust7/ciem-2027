@@ -64,3 +64,10 @@
 #ciem-chat .cc-toggle{display:inline-flex;align-items:center;gap:10px}
 
 #ciem-chat .cc-toggle,#ciem-chat .cc-toggle:hover{color:#FFF;}
+#ciem-chat .cc-whatsapp-launcher{display:none}
+@media(max-width:640px){
+#ciem-chat .cc-toggle{width:56px;height:56px;padding:0;justify-content:center;border-radius:50%;background:transparent;box-shadow:none}
+#ciem-chat .cc-toggle>svg,#ciem-chat .cc-toggle>span{display:none}
+#ciem-chat .cc-whatsapp-launcher{display:block;width:56px;height:56px}
+#ciem-chat .cc-toggle:hover{background:transparent;color:#FFF}
+}
