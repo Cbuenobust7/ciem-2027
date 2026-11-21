@@ -10,13 +10,27 @@
   const log = root.querySelector('.cc-messages'), form = root.querySelector('form');
   const input = root.querySelector('textarea'), send = form.querySelector('button');
   const history = [];
+  // Inserta el glifo oficial de WhatsApp ([[wa]]) en línea con el texto.
+  function appendText(parent, text) {
+    const parts = text.split('[[wa]]');
+    parts.forEach((part, index) => {
+      if (index > 0) {
+        const icon = document.createElement('img');
+        icon.src = '/ciem-chat/whatsapp-mobile.svg';
+        icon.alt = 'WhatsApp';
+        icon.className = 'cc-inline-wa';
+        parent.append(icon);
+      }
+      if (part) parent.append(document.createTextNode(part));
+    });
+  }
   function renderMessage(element, text) {
     element.replaceChildren();
     const pattern = /https?:\/\/[^\s<>"']+/g;
     let cursor = 0;
     for (const match of text.matchAll(pattern)) {
       const url = match[0].replace(/[.,;:!?)}\]]+$/, '');
-      element.append(document.createTextNode(text.slice(cursor, match.index)));
+      appendText(element, text.slice(cursor, match.index));
       const link = document.createElement('a');
       link.href = url;
       let host = '';
@@ -53,7 +67,7 @@
       element.append(link);
       cursor = match.index + url.length;
     }
-    element.append(document.createTextNode(text.slice(cursor)));
+    appendText(element, text.slice(cursor));
   }
   function findAnchor(hash) {
     if (!hash || hash.length < 2) return null;
@@ -78,16 +92,19 @@
     const bubble = document.createElement('div'); bubble.className = 'cc-message cc-' + role;
     renderMessage(bubble, text); log.append(bubble); reveal(bubble); return bubble;
   }
-  function open(value) { panel.hidden = !value; toggle.setAttribute('aria-expanded', String(value)); if (value) input.focus(); else toggle.focus(); }
-  toggle.onclick = () => {
-    if (panel.hidden) {
-      document.dispatchEvent(new Event('ciem:assistant-chat-open'));
-    }
-    open(panel.hidden);
-  };
+  function open(value) {
+    const abriendo = value && panel.hidden;
+    panel.hidden = !value;
+    toggle.setAttribute('aria-expanded', String(value));
+    if (value) input.focus(); else toggle.focus();
+    // Se emite desde aquí y no desde el botón: así cuenta tanto el botón flotante
+    // como cualquier CTA con data-ciem-ask, y solo una vez por apertura.
+    if (abriendo) document.dispatchEvent(new Event('ciem:assistant-chat-open'));
+  }
+  toggle.onclick = () => open(panel.hidden);
   root.querySelector('.cc-close').onclick = () => open(false);
   root.addEventListener('keydown', e => { if (e.key === 'Escape') open(false); });
-  append('¡Hola! ¿Buscas crear una web o mejorar la que ya tienes? Te ayudo con desarrollo web, hosting, mantenimiento, soporte y Marketplace CIEM. Conversa con el equipo por WhatsApp para evaluar tu proyecto: https://wa.me/51999989709', 'assistant');
+  append('¡Hola! ¿Buscas crear una web o mejorar la que ya tienes? Te ayudo con desarrollo web, hosting, mantenimiento, soporte y Marketplace CIEM. Escríbenos por WhatsApp al [[wa]] +51 999 989 709 o llámanos al 📞 942 020 546: https://wa.me/51999989709', 'assistant');
   input.addEventListener('keydown', e => { if (e.key === 'Enter' && !e.shiftKey && !e.isComposing) { e.preventDefault(); form.requestSubmit(); } });
   form.addEventListener('submit', async e => {
     e.preventDefault(); const content = input.value.trim(); if (!content || send.disabled) return;
@@ -139,5 +156,15 @@
     input.value = text;
     form.requestSubmit();
   }, true);
+  // API mínima: permite abrir el chat con una consulta desde cualquier enlace de
+  // la página, conservando el seguimiento de eventos que hace React.
+  window.ciemChat = {
+    open(text) {
+      open(true);
+      if (send.disabled || !text) return;
+      input.value = text;
+      form.requestSubmit();
+    }
+  };
   revealHash();
 })();

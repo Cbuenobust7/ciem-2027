@@ -65,6 +65,8 @@
           text-decoration: none;
           transition: transform .2s ease, background-color .2s ease, border-color .2s ease;
         }
+        /* El CTA del chat es un <button>: necesita heredar tipografía y cursor. */
+        button.ciem-hero__button { font-family: inherit; cursor: pointer; }
         .ciem-hero__button:hover, .ciem-hero__button:focus { color: #fff; transform: translateY(-2px); text-decoration: none; }
         .ciem-hero__button--primary { min-width: 292px; background: #087dfa; box-shadow: 0 12px 24px rgba(0, 89, 194, .28); }
         .ciem-hero__button--primary:hover, .ciem-hero__button--primary:focus { background: #0668d3; }
@@ -125,3 +127,14 @@
         @media (prefers-reduced-motion: reduce) {
           .ciem-hero *, .ciem-hero *::before, .ciem-hero *::after { animation-duration: .01ms !important; animation-iteration-count: 1 !important; transition-duration: .01ms !important; }
         }
+
+/* Landing "Diseño web en Lima": mismo hero que la home, con titular largo (SEO) */
+.ciem-hero--landing .ciem-hero__title {
+  max-width: 640px;
+  font-size: clamp(2rem, 3.1vw, 3rem);
+  letter-spacing: -.035em;
+  line-height: 1.08;
+}
+@media (max-width: 767px) {
+  .ciem-hero--landing .ciem-hero__title { font-size: clamp(2rem, 8.5vw, 2.6rem); }
+}

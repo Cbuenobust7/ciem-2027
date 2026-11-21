@@ -1,12 +1,21 @@
 const googleMeasurementId = import.meta.env.VITE_GA_MEASUREMENT_ID?.trim()
 const clarityProjectId = import.meta.env.VITE_CLARITY_PROJECT_ID?.trim()
 
+// Conversiones «Clic saliente». Se envían a las dos cuentas de CIEM:
+//  - 589-693-3829: la original (bloqueada para servir, pero se conserva el envío)
+//  - 497-616-1054: la nueva, con facturación aprobada
+const adsConversions = [
+  { id: 'AW-10942395648', label: 'bljrCI2MhrsdEIDq3uEo' },
+  { id: 'AW-18586947239', label: '_o9PCMryq7wdEKed-Z5F' },
+]
+
 const GOOGLE_MEASUREMENT_ID_PATTERN = /^G-[A-Z0-9]+$/i
 const CLARITY_PROJECT_ID_PATTERN = /^[A-Z0-9]{10}$/i
 
 const CLARITY_ENABLED_PATHS = new Set([
   '/',
   '/marketplace',
+  '/diseno-web-lima',
   '/nosotros',
   '/contacto',
   '/ayuda',
@@ -39,6 +48,7 @@ export type WhatsAppPlacement =
   | 'info_contact'
   | 'footer'
   | 'assistant_message'
+  | 'landing_lima'
 
 type GtagFunction = (...args: unknown[]) => void
 type ClarityFunction = ((...args: unknown[]) => void) & { q?: IArguments[] }
@@ -58,6 +68,8 @@ let clarityConfigErrorLogged = false
 let clarityRecordingAllowed = false
 
 function isCiemDomain() {
+  // Solo el dominio principal. marketplace.ciem.pe queda fuera a propósito: la
+  // campaña se mide en ciem.pe y no queremos mezclar las dos propiedades.
   return window.location.hostname === 'ciem.pe' || window.location.hostname === 'www.ciem.pe'
 }
 
@@ -85,6 +97,14 @@ function initializeGoogleAnalytics() {
     allow_google_signals: false,
     allow_ad_personalization_signals: false,
   })
+  // Mismo tag, destinos de Google Ads: sin el config, el evento de conversión se
+  // envía a una cuenta que el contenedor desconoce y se descarta.
+  for (const conversion of adsConversions) {
+    window.gtag('config', conversion.id, {
+      allow_google_signals: false,
+      allow_ad_personalization_signals: false,
+    })
+  }
 
   const script = document.createElement('script')
   script.async = true
@@ -146,21 +166,19 @@ export function trackPageView(pathname: string) {
 
   const pagePath = getAnalyticsPagePath(pathname)
   const pageLocation = `${window.location.origin}${pagePath}`
-  window.gtag?.('config', googleMeasurementId, {
-    send_page_view: false,
+  const params: Record<string, unknown> = {
     page_path: pagePath,
     page_location: pageLocation,
-    page_referrer: `${window.location.origin}/`,
-    page_title: 'CIEM',
-    allow_google_signals: false,
-    allow_ad_personalization_signals: false,
-  })
-  window.gtag?.('event', 'page_view', {
-    page_path: pagePath,
-    page_location: pageLocation,
-    page_referrer: `${window.location.origin}/`,
-    page_title: 'CIEM',
-  })
+  }
+  // Referente real del navegador. Si no hay, no se envía y GA usa su propio `dr`.
+  if (document.referrer) params.page_referrer = document.referrer
+
+  // Las páginas fijan document.title en su propio useEffect, que se ejecuta
+  // después que este componente: se envía en el siguiente tick para no arrastrar
+  // el título de la página anterior.
+  window.setTimeout(() => {
+    window.gtag?.('event', 'page_view', { ...params, page_title: document.title || 'CIEM' })
+  }, 0)
 }
 
 function isClarityAllowed(pathname: string, search: string) {
@@ -194,6 +212,40 @@ function dispatchAnalyticsEvent(event: AnalyticsEvent, parameters?: Record<strin
   if (clarityRecordingAllowed) {
     window.clarity?.('event', event)
   }
+}
+
+/**
+ * Envía la conversión «Clic saliente» de Google Ads.
+ *
+ * Es una conversión por clic, no por página de agradecimiento: la define el
+ * anunciante para medir cuántos visitantes salen hacia WhatsApp.
+ */
+export function trackAdsConversion() {
+  if (!initializeGoogleAnalytics()) return
+  for (const conversion of adsConversions) {
+    window.gtag?.('event', 'conversion', {
+      send_to: `${conversion.id}/${conversion.label}`,
+    })
+  }
+}
+
+let outboundConversionInstalled = false
+
+/**
+ * Un único oyente en fase de captura: cubre los botones de React del sitio y
+ * también el enlace que el widget del chat construye por su cuenta.
+ */
+export function installOutboundConversionTracking() {
+  if (outboundConversionInstalled) return
+  outboundConversionInstalled = true
+  document.addEventListener(
+    'click',
+    event => {
+      const target = event.target as Element | null
+      if (target?.closest?.('a[href*="wa.me"]')) trackAdsConversion()
+    },
+    true,
+  )
 }
 
 export function trackAnalyticsEvent(event: AnalyticsEvent) {

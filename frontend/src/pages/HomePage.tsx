@@ -3,12 +3,11 @@ import { PlatformBanner } from '@/components/home/PlatformBanner'
 import { ClientsBar } from '@/components/home/ClientsBar'
 import { AcademySection } from '@/components/home/AcademySection'
 import { DevHostingSection } from '@/components/home/DevHostingSection'
-import type { CSSProperties } from 'react'
+import { CiemHeroArt } from '@/components/home/CiemHeroArt'
 import './CiemHero.css'
-import { projectContact } from '@/data/ciemCatalog'
 import { useLanguage } from '@/i18n'
 import { useEffect, useState } from 'react'
-import { analytics, trackAnalyticsEvent, trackWhatsAppClick } from '@/lib/analytics'
+import { analytics, trackAnalyticsEvent } from '@/lib/analytics'
 
 
 export default function HomePage() {
@@ -50,41 +49,18 @@ export default function HomePage() {
       <div className="ciem-hero__inner">
         <div className="ciem-hero__content">
           <p className="ciem-hero__eyebrow">DESARROLLO WEB · DISEÑO WEB · HOSTING</p>
-          <h1 id="ciem-hero-title" className="ciem-hero__title">Desarrollo web para impulsar tu negocio</h1>
-          <p className="ciem-hero__copy">Diseñamos y desarrollamos sitios web y aplicaciones para negocios. También te ayudamos con hosting y soporte técnico para mantener tu proyecto en línea.</p>
+          <h1 id="ciem-hero-title" className="ciem-hero__title">
+            Cero webs genéricas.
+            <br />
+            <span className="ciem-hero__brand">CIEM</span> por ciento tu&nbsp;marca.
+          </h1>
+          <p className="ciem-hero__copy">Diseñamos y desarrollamos sitios web y aplicaciones a la medida de tu negocio. También te ayudamos con hosting, integración con IA y soporte técnico para mantener tu proyecto en línea.</p>
           <div className="ciem-hero__actions">
-            <a className="ciem-hero__button ciem-hero__button--primary" href={projectContact()} target="_blank" rel="noopener noreferrer" data-ciem-ask="Quiero solicitar una cotización para mi proyecto web" onClick={() => trackWhatsAppClick('home_hero')}>Solicitar una cotización</a>
+            <button type="button" className="ciem-hero__button ciem-hero__button--primary" data-ciem-ask="Quiero solicitar una cotización para mi proyecto web">Solicitar una cotización</button>
             <a className="ciem-hero__button ciem-hero__button--secondary" href="#servicios" onClick={() => trackAnalyticsEvent(analytics.heroServicesLink)}>¿Qué ofrecemos?</a>
           </div>
         </div>
-        <div className="ciem-hero__art" aria-hidden="true">
-          <img className="ciem-hero__pattern" src="/images/ciem-hero/banner-pattern-4-1.png" alt="" />
-          <img className="ciem-hero__cloud ciem-hero__cloud--back" src="/images/ciem-hero/cloud2.png" alt="" />
-          <div className="ciem-hero__servers" aria-hidden="true">
-
-            <img className="ciem-server" style={{'--x': '-108px', '--y': '365px', '--z': '27'} as CSSProperties} src="/images/ciem-hero/box2.png" alt="" />
-            <img className="ciem-server" style={{'--x': '14px', '--y': '296px', '--z': '17'} as CSSProperties} src="/images/ciem-hero/box1.png" alt="" />
-            <img className="ciem-server" style={{'--x': '-229px', '--y': '294px', '--z': '22'} as CSSProperties} src="/images/ciem-hero/box1.png" alt="" />
-            <img className="ciem-server" style={{'--x': '-106px', '--y': '221px', '--z': '12'} as CSSProperties} src="/images/ciem-hero/box1.png" alt="" />
-            <img className="ciem-server" style={{'--x': '-108px', '--y': '289px', '--z': '28'} as CSSProperties} src="/images/ciem-hero/box1.png" alt="" />
-            <img className="ciem-server" style={{'--x': '14px', '--y': '219px', '--z': '18'} as CSSProperties} src="/images/ciem-hero/box2.png" alt="" />
-            <img className="ciem-server" style={{'--x': '-106px', '--y': '146px', '--z': '13'} as CSSProperties} src="/images/ciem-hero/box1.png" alt="" />
-            <img className="ciem-server" style={{'--x': '-229px', '--y': '218px', '--z': '23'} as CSSProperties} src="/images/ciem-hero/box1.png" alt="" />
-            <img className="ciem-server" style={{'--x': '-108px', '--y': '212px', '--z': '29'} as CSSProperties} src="/images/ciem-hero/box2.png" alt="" />
-            <img className="ciem-server" style={{'--x': '14px', '--y': '144px', '--z': '19'} as CSSProperties} src="/images/ciem-hero/box1.png" alt="" />
-            <img className="ciem-server" style={{'--x': '-229px', '--y': '142px', '--z': '24'} as CSSProperties} src="/images/ciem-hero/box1.png" alt="" />
-            <img className="ciem-server" style={{'--x': '-106px', '--y': '77px', '--z': '14'} as CSSProperties} src="/images/ciem-hero/box1.png" alt="" />
-            <img className="ciem-server" style={{'--x': '-108px', '--y': '136px', '--z': '30'} as CSSProperties} src="/images/ciem-hero/box1.png" alt="" />
-            <img className="ciem-server" style={{'--x': '14px', '--y': '67px', '--z': '20'} as CSSProperties} src="/images/ciem-hero/box2.png" alt="" />
-            <img className="ciem-server" style={{'--x': '-107px', '--y': '0', '--z': '15'} as CSSProperties} src="/images/ciem-hero/box1.png" alt="" />
-            <img className="ciem-server" style={{'--x': '-231px', '--y': '66px', '--z': '25'} as CSSProperties} src="/images/ciem-hero/box1.png" alt="" />
-
-            <img className="ciem-server ciem-server--lid" style={{'--x': '-108px', '--y': '-1px', '--z': '16'} as CSSProperties} src="/images/ciem-hero/box3.png" alt="" />
-            <img className="ciem-server ciem-server--lid" style={{'--x': '-108px', '--y': '135px', '--z': '31'} as CSSProperties} src="/images/ciem-hero/box3.png" alt="" />
-            <img className="ciem-server ciem-server--lid" style={{'--x': '-231px', '--y': '66px', '--z': '26'} as CSSProperties} src="/images/ciem-hero/box3.png" alt="" />
-          </div>
-          <img className="ciem-hero__cloud ciem-hero__cloud--front" src="/images/ciem-hero/cloud1.png" alt="" />
-        </div>
+        <CiemHeroArt />
       </div>
     </section>
 
