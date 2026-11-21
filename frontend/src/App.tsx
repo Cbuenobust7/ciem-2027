@@ -10,6 +10,7 @@ import { ProtectedRoute } from '@/components/ui/ProtectedRoute'
 import { RequirePublisher } from '@/components/ui/RequirePublisher'
 import HomePage from '@/pages/HomePage'
 import MarketplacePage from '@/pages/MarketplacePage'
+import DisenoWebLimaPage from '@/pages/DisenoWebLimaPage'
 
 // Carga perezosa: en el primer render solo hace falta el catálogo. Así el panel
 // de proveedor, el asistente de reserva, la agenda y los pagos no engordan el
@@ -82,6 +83,7 @@ function App() {
           <Route element={<MainLayout />}>
             <Route path="/" element={<HomePage />} />
             <Route path="/marketplace" element={<MarketplacePage />} />
+            <Route path="/diseno-web-lima" element={<DisenoWebLimaPage />} />
             <Route path="/markeplace" element={<Navigate to="/marketplace" replace />} />
             <Route path="/nosotros" element={<CiemInfoPage />} />
             <Route path="/contacto" element={<CiemInfoPage />} />

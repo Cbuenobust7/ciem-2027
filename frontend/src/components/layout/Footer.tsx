@@ -34,7 +34,8 @@ export function Footer() {
           <h3>Productos digitales</h3>
           <ul>
             <li><Link to="/">Explorar el catálogo</Link></li>
-            <li><a href="https://marketplace.ciem.pe/">Marketplace CIEM</a></li>
+            <li><Link to="/marketplace">Marketplace CIEM</Link></li>
+            <li><Link to="/diseno-web-lima">Diseño web en Lima</Link></li>
             <li><Link to="/contacto">Solicitar una cotización</Link></li>
           </ul>
         </div>
