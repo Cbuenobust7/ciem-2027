@@ -1,5 +1,5 @@
 import { BrandLogo } from './BrandLogo'
-import { useState } from 'react'
+import { useState, type MouseEvent } from 'react'
 import { Link } from 'react-router-dom'
 import { analytics, trackAnalyticsEvent, trackWhatsAppClick } from '@/lib/analytics'
 import './CiemNavbar.css'
@@ -12,6 +12,16 @@ const links = [
 
 export function Header() {
   const [menuOpen, setMenuOpen] = useState(false)
+  // Abre el asistente con los datos de contacto. Si el widget no está cargado,
+  // deja que el enlace siga a WhatsApp.
+  function openContactChat(event: MouseEvent<HTMLAnchorElement>) {
+    const chat = (window as unknown as { ciemChat?: { open: (text: string) => void } }).ciemChat
+    if (!chat) return
+    event.preventDefault()
+    trackWhatsAppClick('header')
+    chat.open('Quiero los datos de contacto del equipo: WhatsApp y teléfono para llamadas.')
+  }
+
   return (
     <header className="ciem-navbar">
       <div className="ciem-navbar__inner">
@@ -20,7 +30,7 @@ export function Header() {
         </Link>
         <nav className="ciem-navbar__links" aria-label="Navegación principal">
           {links.map(({ label, href, event }) => <a key={href} href={href} onClick={() => trackAnalyticsEvent(event)}>{label}</a>)}
-          <a href="https://wa.me/51999989709" className="ciem-navbar__contact" target="_blank" rel="noopener noreferrer" onClick={() => trackWhatsAppClick('header')}>Contacto</a>
+          <a href="https://wa.me/51999989709" className="ciem-navbar__contact" target="_blank" rel="noopener noreferrer" onClick={openContactChat}>Contacto</a>
         </nav>
         <div className="ciem-navbar__tools">
           <button type="button" className="ciem-navbar__toggle" aria-label={menuOpen ? 'Cerrar menú' : 'Abrir menú'} aria-expanded={menuOpen} aria-controls="ciem-navbar-mobile" onClick={() => {
@@ -36,8 +46,8 @@ export function Header() {
           trackAnalyticsEvent(event)
           setMenuOpen(false)
         }}>{label}</a>)}
-        <a href="https://wa.me/51999989709" className="ciem-navbar__contact" target="_blank" rel="noopener noreferrer" onClick={() => {
-          trackWhatsAppClick('header')
+        <a href="https://wa.me/51999989709" className="ciem-navbar__contact" target="_blank" rel="noopener noreferrer" onClick={event => {
+          openContactChat(event)
           setMenuOpen(false)
         }}>Contacto</a>
       </nav>}
